@@ -185,4 +185,12 @@ class ProductController extends Controller
         $msg = 'Successfully deleted product';
         return redirect()->route('product.index')->with('msg', $msg);
     }
+
+
+    public function product_featured(Request $request){
+        $model = Product::find($request->id);
+        $model->product_featured = $model->product_featured == 1 ? 0 : 1;
+        $model->update();
+        return response()->json(['ok' => true]); 
+    }
 }

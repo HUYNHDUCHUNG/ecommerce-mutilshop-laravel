@@ -40,7 +40,7 @@
                                 <th>Quantity</th>
                                 <th>Category</th>
                                 <th>Description</th>
-                                <th>Featured</th>
+                                <th style="text-align: center">Featured</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                     <td>{{ $item->product_price }}$</td>
                                     <td>{{ $item->product_quantity }}</td>
                                     <td>{{ $item->getCategory->category_name }}</td>
-                                    <td><a href="#"><i class="fas fa-star"></i></a></td>
+                                    
                                     <td >
                                     <div style="word-wrap: break-word;
                                     white-space: normal;
@@ -68,6 +68,7 @@
                                         {{ $item->product_description }}
                                     </div>
                                     </td>
+                                    <td style="text-align: center"><a href="" class="btn_featured" data-id = "{{ $item->id }}"><i style="font-size: 25px;" class="{{ $item->product_featured == 0 ? "far" : "fas"}} fa-star"></i></a></td>
                                     <td style="display: flex; gap : 10px">
                                         <a href="{{ route('product.edit',[$item->id]) }}"><button type="button" class="btn btn-primary">Edit</button></a>
 
@@ -85,4 +86,38 @@
             </div><!-- /.box -->
         </div>
     </div>
+@endsection
+
+@section("js")
+    <script>
+    $(function(){
+        $(".btn_featured").on("click", function(e){
+            e.preventDefault();
+            var id = $(this).data("id");
+            var btn = $(this);
+            
+            $.ajax({
+                url: "/admin/product/featured",
+                method: "POST",
+                dataType: "json",
+
+                data:{
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    id : id,
+                    
+                },
+
+                success: function(data){
+                    btn.children().toggleClass("fas")
+                    btn.children().toggleClass("far")
+                    
+                }
+
+
+            })
+
+            
+        })
+     })
+    </script>
 @endsection

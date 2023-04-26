@@ -75,7 +75,7 @@ Route::middleware('admin_auth')->prefix('admin')->group(function () {
 
     // //product routes
     Route::resource('product', ProductController::class);
-
+    Route::post('product/featured',[ProductController::class, 'product_featured']);
 
 
 
