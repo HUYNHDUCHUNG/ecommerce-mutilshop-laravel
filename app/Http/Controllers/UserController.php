@@ -19,7 +19,8 @@ class UserController extends Controller
     public function search_products(Request $request)
     {
         $category = Category::all();
-        $product = Product::where('product_name', 'LIKE', '%' . $request->keyword . '%')->get();
+        //$product = Product::where('product_name', 'LIKE', '%' . $request->keyword . '%')->get();
+        $product = Product::where('product_name', 'LIKE', '%' . $request->keyword . '%')->orWhere('product_brand', 'LIKE', '%' . $request->keyword . '%')->get();
         return view('client.product', compact('category', 'product'));
     }
 

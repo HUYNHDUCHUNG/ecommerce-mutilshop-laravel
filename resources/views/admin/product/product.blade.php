@@ -40,6 +40,7 @@
                                 <th>Quantity</th>
                                 <th>Category</th>
                                 <th>Description</th>
+                                <th>Featured</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -55,6 +56,7 @@
                                     <td>{{ $item->product_price }}$</td>
                                     <td>{{ $item->product_quantity }}</td>
                                     <td>{{ $item->getCategory->category_name }}</td>
+                                    <td><a href="#"><i class="fas fa-star"></i></a></td>
                                     <td >
                                     <div style="word-wrap: break-word;
                                     white-space: normal;
