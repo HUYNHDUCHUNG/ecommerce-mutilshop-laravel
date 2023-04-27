@@ -11,17 +11,18 @@ class CartController extends Controller
 {
     public function create(Request $request){
         
-
+        
         try{
             DB::beginTransaction();
             $cart = Cart::firstOrCreate([
                 'user_id' => $request->session()->get('USER_ID'),
             ]);
             
-            if(CartDetail::where('product_id',$request->id)->get()->count() == 1){
+            if(CartDetail::where('product_id',$request->id)->where('cart_id' , $cart->id)->get()->count() == 1){
                 $model = CartDetail::where('product_id',$request->id)->first();
                 $model->quantity += $request->quantity;
                 $model->update();
+                
             }else{
                 CartDetail::create([
                     'cart_id' => $cart->id,
@@ -29,14 +30,17 @@ class CartController extends Controller
                     'quantity' => '1',
                     'price' => $request->price,
                 ]);
+
+                
             }
+            
             DB::commit();
-            return true;
+            return 'true';
         }catch(Exception $e){
             DB::rollBack();
         }
-        
-        return false;
+            
+        return 'false';
         
     }
 

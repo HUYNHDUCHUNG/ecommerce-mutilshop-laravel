@@ -122,7 +122,7 @@
                 })
             })
 
-
+            
             $('.btn-plus').on('click', function() {
                 // alert( $(this).closest('.item-cart').data('id'));
                 var btn = $(this)

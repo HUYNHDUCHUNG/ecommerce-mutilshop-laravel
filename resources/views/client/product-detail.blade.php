@@ -412,19 +412,56 @@
 @section('js')
     <script src="{{ asset('client/js/sweetalert2@11.js') }}"></script>
     <script>
-        function add_cart(id, price, quantity) {
+
+        // function add_cart(id, price, quantity) {
+        //     $.ajax({
+        //         url: "add-cart",
+        //         method: "POST",
+        //         data: {
+        //             _token: '{{ csrf_token() }}',
+        //             //_token: $('meta[name="csrf-token"]').attr('content'),
+        //             id: id,
+        //             price: price,
+        //             quantity: quantity,
+        //         },
+
+        //         success: function(data) {
+        //             if (data) {
+        //                 Swal.fire(
+        //                     'Product added!',
+        //                     'Your product has been successfully added.',
+        //                     'success'
+        //                 )
+        //             }else{
+        //                 Swal.fire(
+        //                     'Product added!',
+        //                     'Your product has been successfully added.',
+        //                     'error'
+        //                 )
+        //             }
+
+        //         }
+        //     })
+        // }
+
+        $('#btn_addCart').on('click', function() {
+            var price = $('.product_price').data('price');
+            var id = $('.product_id').data('id');
+            var quantity = $('#input_quantity').val();
+            
             $.ajax({
-                url: "add-cart",
+                url: "/add-cart",
                 method: "POST",
                 data: {
-                    _token: '{{ csrf_token() }}',
+                    //_token: '{{ csrf_token() }}',
+                    _token: $('meta[name="csrf-token"]').attr('content'),
                     id: id,
                     price: price,
                     quantity: quantity,
                 },
-
+                dataType : 'text',
                 success: function(data) {
-                    if (data) {
+                    if (data == 'true') {
                         Swal.fire(
                             'Product added!',
                             'Your product has been successfully added.',
@@ -440,14 +477,6 @@
 
                 }
             })
-        }
-
-        $('#btn_addCart').on('click', function() {
-            var price = $('.product_price').data('price');
-            var id = $('.product_id').data('id');
-            var quantity = $('#input_quantity').val();
-
-            add_cart(id, price, quantity);
         })
     </script>
 @endsection

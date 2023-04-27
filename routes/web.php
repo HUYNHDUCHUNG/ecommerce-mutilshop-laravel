@@ -39,6 +39,7 @@ Route::middleware('user_auth')->group(function(){
     Route::get('/remove-item-cart', [CartController::class, 'remove_item_cart']);
 
     Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout');
+    Route::get('/district', [UserController::class, 'district']);
 });
 
 

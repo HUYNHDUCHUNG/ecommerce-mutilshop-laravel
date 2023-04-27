@@ -24,20 +24,38 @@
                 <div class="bg-light p-30 mb-5">
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John">
+                            <label>Full Name</label>
+                            <input class="form-control" type="text" placeholder="John" value="{{ $user->name }}" name="fullName">
                         </div>
-                        <div class="col-md-6 form-group">
+                        {{-- <div class="col-md-6 form-group">
                             <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
-                        </div>
-                        <div class="col-md-6 form-group">
+                            <input class="form-control" type="text" placeholder="Doe" value =>
+                        </div> --}}
+                        {{-- <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
-                        </div>
+                            <input class="form-control" type="text" placeholder="Email" value="{{ $user->email }}" name="email">
+                        </div> --}}
                         <div class="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
+                            <input class="form-control" type="text" placeholder="Phone Number" value="{{ $user->phonenumber }}" name="phoneNumber">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Province</label>
+                            <select class="custom-select" name="province" id="loadProvince">
+                                <option selected>------Choose Province------</option>
+                                @foreach ($province as $item)
+                                    <option value="{{ $item->province_id }}">{{ $item->name }}</option>
+                                
+                                    
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 form-group" id="loadDistrict">
+                            <label>District</label>
+                            <select class="custom-select" id="select_district">
+                                
+                            </select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 1</label>
@@ -198,5 +216,31 @@
         </div>
     </div>
     <!-- Checkout End -->
+
+@endsection
+
+@section('js')
+<script>
+    $(function(){
+        $('#loadProvince').on('change', function(){
+            var id_province = $(this).val();
+
+            $.ajax({
+                url:   '/district',
+                method: 'GET',
+                data:{
+                    id_province: id_province,
+                },
+                success: function(data){
+                    $('#select_district').html(data);
+                }
+            })
+        })
+
+
+    })
+
+</script>
+
 
 @endsection
