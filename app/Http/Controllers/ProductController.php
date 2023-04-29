@@ -47,6 +47,8 @@ class ProductController extends Controller
             'price' => 'required|numeric|gt:0|min:1',
             'name' => 'required',
             'brand' => 'required',
+            'size' => 'required',
+            'color' => 'required',
 
         ]); 
 
@@ -60,7 +62,9 @@ class ProductController extends Controller
                 'product_quantity' => $request->quantity,
                 'product_brand' => $request->brand,
                 'product_description' => $request->description,
-                'category_id' => $request->category
+                'category_id' => $request->category,
+                'product_size' => $request->size,
+                'product_color' => $request->color,
             ]);
             $id = $product->id;
 
@@ -126,6 +130,10 @@ class ProductController extends Controller
             'price' => 'required|numeric|gt:0|min:1',
             'name' => 'required',
             'brand' => 'required',
+            'size' => 'required',
+            'color' => 'required',
+            
+            
         ]);
         $model = Product::find($id);
         $model->product_name = $request->name;
@@ -134,6 +142,8 @@ class ProductController extends Controller
         $model->product_brand = $request->brand;
         $model->category_id = $request->category;
         $model->product_description = $request->description;
+        $model->product_size = $request->size;
+        $model->product_color = $request->color;
         $model->save();
 
         if ($request->hasFile('nameFile')) {

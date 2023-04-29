@@ -40,6 +40,7 @@ Route::middleware('user_auth')->group(function(){
 
     Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout');
     Route::get('/district', [UserController::class, 'district']);
+    Route::get('/ward', [UserController::class, 'ward']);
 });
 
 

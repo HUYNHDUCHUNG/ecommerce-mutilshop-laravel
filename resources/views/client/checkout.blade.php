@@ -19,8 +19,8 @@
     <!-- Checkout Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
-            <div class="col-lg-8">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
+            <div class="col-lg-12">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Shipping Address</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="row">
                         <div class="col-md-6 form-group">
@@ -51,17 +51,23 @@
                             </select>
                         </div>
 
-                        <div class="col-md-6 form-group" id="loadDistrict">
+                        <div class="col-md-6 form-group" >
                             <label>District</label>
-                            <select class="custom-select" id="select_district">
-                                
+                            <select class="custom-select" id="loadDistrict">
+                                <option selected>------Choose District------</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group" >
+                            <label>Ward</label>
+                            <select class="custom-select" id="loadWard">
+                                <option selected>------Choose Ward------</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
+                            <label>Specific Address</label>
                             <input class="form-control" type="text" placeholder="123 Street">
                         </div>
-                        <div class="col-md-6 form-group">
+                        {{-- <div class="col-md-6 form-group">
                             <label>Address Line 2</label>
                             <input class="form-control" type="text" placeholder="123 Street">
                         </div>
@@ -97,10 +103,10 @@
                                 <input type="checkbox" class="custom-control-input" id="shipto">
                                 <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
-                <div class="collapse mb-5" id="shipping-address">
+                {{-- <div class="collapse mb-5" id="shipping-address">
                     <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Shipping Address</span></h5>
                     <div class="bg-light p-30">
                         <div class="row">
@@ -151,25 +157,37 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-12">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
-                        <h6 class="mb-3">Products</h6>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 1</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 2</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 3</p>
-                            <p>$150</p>
-                        </div>
+                        <table class="table table-light table-borderless table-hover text-center mb-0">
+                            <thead >
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody class="align-middle">
+                               <tr>
+                                    <td>h</td>
+                                    <td>h</td>
+                                    <td>h</td>
+                                    <td>h</td>
+                                    <td>h</td>
+                                    <td>h</td>
+                                    <td>h</td>
+                               </tr>
+        
+        
+                            </tbody>
+                        </table>
                     </div>
                     <div class="border-bottom pt-3 pb-2">
                         <div class="d-flex justify-content-between mb-3">
@@ -232,11 +250,26 @@
                     id_province: id_province,
                 },
                 success: function(data){
-                    $('#select_district').html(data);
+                    $('#loadDistrict').html(data);
                 }
             })
         })
 
+
+        $('#loadDistrict').on('change', function(){
+            var id_district = $(this).val();
+            $.ajax({
+                url:   '/ward',
+                method: 'GET',
+                data:{
+                    id_district: id_district,
+                },
+                success: function(data){
+
+                    $('#loadWard').html(data);
+                }
+            })
+        })
 
     })
 

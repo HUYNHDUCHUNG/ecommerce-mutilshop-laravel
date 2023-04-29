@@ -18,7 +18,7 @@ class CartController extends Controller
                 'user_id' => $request->session()->get('USER_ID'),
             ]);
             
-            if(CartDetail::where('product_id',$request->id)->where('cart_id' , $cart->id)->get()->count() == 1){
+            if(CartDetail::where('product_id',$request->id)->where('cart_id' , $cart->id)->where('size',$request->size)->where('color',$request->color)->get()->count() == 1){
                 $model = CartDetail::where('product_id',$request->id)->first();
                 $model->quantity += $request->quantity;
                 $model->update();
@@ -29,6 +29,8 @@ class CartController extends Controller
                     'product_id' => $request->id,
                     'quantity' => '1',
                     'price' => $request->price,
+                    'size' => $request->size,
+                    'color' => $request->color,
                 ]);
 
                 
@@ -48,14 +50,14 @@ class CartController extends Controller
         $model = CartDetail::find($request->id);
         $model->quantity -= 1;
         $model->update();
-        return $model->quantity * $model->price;
+        return number_format($model->quantity * $model->price);
     }
 
     public function plus_quantity(Request $request){
         $model = CartDetail::find($request->id);
         $model->quantity += 1;
         $model->update();
-        return $model->quantity * $model->price;
+        return number_format($model->quantity * $model->price);
     }
 
 

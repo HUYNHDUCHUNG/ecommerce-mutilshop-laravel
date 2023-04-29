@@ -26,6 +26,9 @@
                             <th>Image</th>
                             <th>Name</th>
                             <th>Price</th>
+
+                            <th>Size</th>
+                            <th>Color</th>
                             <th>Quantity</th>
                             <th>Total</th>
                             <th>Remove</th>
@@ -37,9 +40,12 @@
                                 <td class="align-middle"><img src="{{ asset('storage/upload/' . $img[$key]) }}"
                                         alt="" style="width: 50px;"></td>
                                 <td>{{ $nameProduct[$key] }}</td>
-                                <td class="align-middle">{{ $item->price }}</td>
+                                <td class="align-middle">{{ number_format($item->price) }}</td>
+                                <td class="align-middle">{{ $item->size }}</td>
+                                <td class="align-middle">{{ $item->color }}</td>
+
                                 <td class="align-middle">
-                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                    <div class="input-group quantity mx-auto " style="width: 100px;">
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm btn-primary btn-minus">
                                                 <i class="fa fa-minus"></i>
@@ -55,7 +61,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle total">{{ $item->price * $item->quantity }}</td>
+                                <td class="align-middle total">{{ number_format($item->price * $item->quantity) }}</td>
                                 <td class="align-middle"><button class="btn btn-sm btn-danger"><i
                                             class="fa fa-times"></i></button></td>
                             </tr>
@@ -102,11 +108,60 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('client/js/sweetalert2@11.js') }}"></script>
     <script>
         $(function() {
+
+
+
+
+
             $('.btn-minus').on('click', function() {
                 // alert( $(this).closest('.item-cart').data('id'));
                 var btn = $(this)
+                
+                var quantity = $(this).closest('.quantity').find('input').first().val();
+                if (quantity == 0) {
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+
+                            )
+
+                            $(this).closest('.item-cart').find('.btn-danger').click();
+
+                        } else {
+                            $(this).closest('.quantity').find('input').first().val(1);
+                            $.ajax({
+                                url: '/plus-quanity',
+                                method: 'GET',
+                                data: {
+                                    'id': btn.closest('.item-cart').data('id'),
+                                },
+                                // dataType: 'text',
+                                success: function(data) {
+                                    // alert(data);
+                                    btn.closest('.item-cart').find('.total').first()
+                                        .html(data);
+                                }
+                            })
+                        }
+                    })
+
+                }
                 $.ajax({
                     url: '/minus-quanity',
                     method: 'GET',
@@ -117,12 +172,12 @@
                     success: function(data) {
                         // alert(data);
                         btn.closest('.item-cart').find('.total').first().html(data);
-                        
+
                     }
                 })
             })
 
-            
+
             $('.btn-plus').on('click', function() {
                 // alert( $(this).closest('.item-cart').data('id'));
                 var btn = $(this)
@@ -143,18 +198,38 @@
             $('.btn-danger').on('click', function() {
                 // alert( $(this).closest('.item-cart').data('id'));
                 var btn = $(this)
-                $.ajax({
-                    url: '/remove-item-cart',
-                    method: 'GET',
-                    data: {
-                        'id': btn.closest('.item-cart').data('id'),
-                    },
-                    // dataType: 'text',
-                    success: function(data) {
-                        // alert(data);
-                        btn.closest('.item-cart').fadeOut('slow');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+
+                        )
+                        $.ajax({
+                            url: '/remove-item-cart',
+                            method: 'GET',
+                            data: {
+                                'id': btn.closest('.item-cart').data('id'),
+                            },
+                            // dataType: 'text',
+                            success: function(data) {
+                                // alert(data);
+                                btn.closest('.item-cart').fadeOut('slow');
+                            }
+                        })
                     }
                 })
+
             })
         })
     </script>

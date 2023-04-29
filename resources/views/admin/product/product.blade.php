@@ -90,6 +90,9 @@
 
 @section("js")
     <script>
+    
+
+
     $(function(){
         $(".btn_featured").on("click", function(e){
             e.preventDefault();

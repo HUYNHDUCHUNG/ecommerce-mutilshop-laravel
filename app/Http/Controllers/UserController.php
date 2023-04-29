@@ -9,6 +9,7 @@ use App\Models\District;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
+use App\Models\Ward;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Session\Session;
@@ -23,10 +24,14 @@ class UserController extends Controller
 
     public function search_products(Request $request)
     {
+        $cart_qty = 0;
+        if($request->session()->has('USER_ID')){
+            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        }
         $category = Category::all();
         //$product = Product::where('product_name', 'LIKE', '%' . $request->keyword . '%')->get();
         $product = Product::where('product_name', 'LIKE', '%' . $request->keyword . '%')->orWhere('product_brand', 'LIKE', '%' . $request->keyword . '%')->get();
-        return view('client.product', compact('category', 'product'));
+        return view('client.product', compact('category', 'product','cart_qty'));
     }
 
     public function product_filter(Request $request)
@@ -105,7 +110,11 @@ class UserController extends Controller
 
         $product = Product::find($request->id);
         $img = $product->productImgs;
-        return view('client.product-detail', compact('category', 'product', 'img','cart_qty'));
+        $textSize = $product->product_size;
+        $textColor = $product->product_color;
+        $size = explode(",", $textSize);
+        $color = explode(",", $textColor);
+        return view('client.product-detail', compact('category', 'product', 'img','cart_qty','size','color'));
     }
     public function cart(Request $request)
     {
@@ -114,7 +123,7 @@ class UserController extends Controller
             $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
         }
 
-        $cartDetails = Cart::where('user_id', session()->get('USER_ID'))->first()->cartDetails;
+        $cartDetails = Cart::where('user_id', session()->get('USER_ID'))->first()->cartDetails()->latest()->get();
         $img = [];
         $nameProduct = [];
         foreach ($cartDetails as $item) {
@@ -143,6 +152,16 @@ class UserController extends Controller
         $html = '<option selected>------Choose District------</option>';
         foreach($district as $item){
             $html .= '<option value= "'.$item->district_id .'" > ' .$item->name .'</option>';
+               
+        }
+        return $html;
+    }
+
+    public function ward(Request $request){
+        $ward = Ward::where('district_id',$request->id_district)->get();
+        $html = '<option selected>------Choose Ward------</option>';
+        foreach($ward as $item){
+            $html .= '<option value= "'.$item->ward_id .'" > ' .$item->name .'</option>';
                
         }
         return $html;
@@ -210,6 +229,8 @@ class UserController extends Controller
                 'phonenumber' => $request->phoneNumber,
                 'password' => Hash::make($request->password),
             ]);
+
+            $request->session()->flash('success', 'Successfully Register');
             return redirect()->route('user.login');
         } else {
             $request->session()->flash('error', 'password does not match');

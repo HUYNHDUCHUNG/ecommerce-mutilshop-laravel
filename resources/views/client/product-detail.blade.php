@@ -73,53 +73,25 @@
                         Nonumy</p> --}}
                     <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Sizes:</strong>
-                        <form>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-1" name="size">
-                                <label class="custom-control-label" for="size-1">XS</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-2" name="size">
-                                <label class="custom-control-label" for="size-2">S</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-3" name="size">
-                                <label class="custom-control-label" for="size-3">M</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-4" name="size">
-                                <label class="custom-control-label" for="size-4">L</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-5" name="size">
-                                <label class="custom-control-label" for="size-5">XL</label>
-                            </div>
-                        </form>
+                        
+                        @foreach ($size as $key => $item)
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="size-{{ $key }}" name="size" data-size = "{{ $item }}" {{ $key == 0 ? "checked" : "" }}>
+                            <label class="custom-control-label" for="size-{{ $key }}" style="user-select: none">{{ $item }}</label>
+                        </div>
+                        @endforeach
+                            
+                       
                     </div>
                     <div class="d-flex mb-4">
                         <strong class="text-dark mr-3">Colors:</strong>
-                        <form>
+                            @foreach ($color as $key => $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-1" name="color">
-                                <label class="custom-control-label" for="color-1">Black</label>
+                                <input type="radio" class="custom-control-input" id="color-{{ $key }}" name="color" data-color = "{{ $item }}"  {{ $key == 0 ? "checked" : "" }}>
+                                <label class="custom-control-label" for="color-{{ $key }}" style="user-select: none">{{ $item }}</label>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-2" name="color">
-                                <label class="custom-control-label" for="color-2">White</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-3" name="color">
-                                <label class="custom-control-label" for="color-3">Red</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-4" name="color">
-                                <label class="custom-control-label" for="color-4">Blue</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-5" name="color">
-                                <label class="custom-control-label" for="color-5">Green</label>
-                            </div>
-                        </form>
+                            @endforeach
+                        
                     </div>
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
@@ -171,17 +143,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab-pane-1">
                             <h4 class="mb-3">Product Description</h4>
-                            <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
-                                invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
-                                consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam.
-                                Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos
-                                dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod
-                                nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt
-                                tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
-                            <p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor
-                                consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita
-                                clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit rebum.
-                                Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna et.</p>
+                                {{ $product->product_description }}
                         </div>
                         <div class="tab-pane fade" id="tab-pane-3">
                             <div class="row">
@@ -412,43 +374,17 @@
 @section('js')
     <script src="{{ asset('client/js/sweetalert2@11.js') }}"></script>
     <script>
-
-        // function add_cart(id, price, quantity) {
-        //     $.ajax({
-        //         url: "add-cart",
-        //         method: "POST",
-        //         data: {
-        //             _token: '{{ csrf_token() }}',
-        //             //_token: $('meta[name="csrf-token"]').attr('content'),
-        //             id: id,
-        //             price: price,
-        //             quantity: quantity,
-        //         },
-
-        //         success: function(data) {
-        //             if (data) {
-        //                 Swal.fire(
-        //                     'Product added!',
-        //                     'Your product has been successfully added.',
-        //                     'success'
-        //                 )
-        //             }else{
-        //                 Swal.fire(
-        //                     'Product added!',
-        //                     'Your product has been successfully added.',
-        //                     'error'
-        //                 )
-        //             }
-
-        //         }
-        //     })
-        // }
+        
+        
+        
+        
 
         $('#btn_addCart').on('click', function() {
             var price = $('.product_price').data('price');
             var id = $('.product_id').data('id');
             var quantity = $('#input_quantity').val();
-            
+            var color = $('input[name="color"]:checked').attr('data-color');
+            var size = $('input[name="size"]:checked').attr('data-size');
             $.ajax({
                 url: "/add-cart",
                 method: "POST",
@@ -458,6 +394,8 @@
                     id: id,
                     price: price,
                     quantity: quantity,
+                    size: size,
+                    color:color,
                 },
                 dataType : 'text',
                 success: function(data) {

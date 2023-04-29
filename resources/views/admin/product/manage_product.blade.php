@@ -71,6 +71,14 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Input Size: <br> <small style="color: gray">The sizes are separated by a ,</small></label>
+                                <input type="text" class="form-control" id="inputPassword4" name="size">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Input Color: <br> <small style="color: gray"> The colors are separated by a ,</small></label>
+                                <input type="text" class="form-control" id="inputPassword4" name="color">
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
