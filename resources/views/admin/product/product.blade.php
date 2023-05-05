@@ -13,7 +13,7 @@
     <div class="row">
         @if (session('msg'))
             <div class="col-md-5">
-                <div class="alert alert-success" role="alert"
+                <div class="alert alert-success fade in" role="alert"
                     style="background-color: #dff0d8 !important;border-color: #d6e9c6 !important;color: #3c763d !important">
                     {{ session('msg') }}</div>
             </div>

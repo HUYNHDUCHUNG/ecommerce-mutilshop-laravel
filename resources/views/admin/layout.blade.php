@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>AdminLTE | Dashboard</title>
-
-
+    @yield("link")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -319,6 +318,20 @@
                             <i class="fa fa-book"></i></i> <span>Product</span>
                         </a>
                     </li>
+                    <li class="active treeview">
+                        <a href="{{ route('order') }}">
+                          <i class="fa fa-edit"></i> <span>Order</span>
+                          {{-- <i class="fa fa-angle-left pull-right"></i> --}}
+                        </a>
+                        {{-- <ul class="treeview-menu">
+                          <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> Pendding</a></li>
+                          <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Delivered</a></li>
+                          <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Completed</a></li>
+                          <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Cancelled</a></li>
+                        </ul> --}}
+                      </li>
+
+                    
                 </ul>
             </section>
             <!-- /.sidebar -->

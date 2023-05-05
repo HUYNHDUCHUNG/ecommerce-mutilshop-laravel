@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartDetail;
 use App\Models\Category;
 use App\Models\District;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
@@ -56,7 +57,7 @@ class UserController extends Controller
                             <div class='text-center py-4'>
                                 <a class='h6 text-decoration-none text-truncate' href=''>" . $item->product_name . "</a>
                                 <div class='d-flex align-items-center justify-content-center mt-2'>
-                                    <h5>" . $item->product_price . "</h5><h6 class='text-muted ml-2'><del>" . $item->product_price . " </del></h6>
+                                    <h5>" . number_format($item->product_price) . "</h5><h6 class='text-muted ml-2'><del>" . number_format($item->product_price) . " </del></h6>
                                 </div>
                                 <div class='d-flex align-items-center justify-content-center mb-1'>
                                     <small class='fa fa-star text-primary mr-1'></small>
@@ -126,13 +127,15 @@ class UserController extends Controller
         $cartDetails = Cart::where('user_id', session()->get('USER_ID'))->first()->cartDetails()->latest()->get();
         $img = [];
         $nameProduct = [];
+        $total_all = 0;
         foreach ($cartDetails as $item) {
             $model = Product::find($item->product_id);
             $img[] = $model->productImgs['0']->img_name;
             $nameProduct[] = $model->product_name;
+            $total_all += $item->price * $item->quantity;
         }
         $category = Category::all();
-        return view('client.cart', compact('category', 'cartDetails', 'img', 'nameProduct','cart_qty'));
+        return view('client.cart', compact('category', 'cartDetails', 'img', 'nameProduct','cart_qty','total_all'));
     }
     public function checkout(Request $request)
     {
@@ -141,10 +144,39 @@ class UserController extends Controller
             $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
         }
 
+        $cartDetails = Cart::where('user_id', session()->get('USER_ID'))->first()->cartDetails()->latest()->get();
+        $img = [];
+        $nameProduct = [];
+        $total_all = 0; // tong gia tat ca san pham
+        $quantity_all = 0;
+        foreach ($cartDetails as $item) {
+            $model = Product::find($item->product_id);
+            $img[] = $model->productImgs['0']->img_name;
+            $nameProduct[] = $model->product_name;
+            $total_all += $item->price * $item->quantity;
+            $quantity_all += $item->quantity;
+        }
+
         $category = Category::all();
         $user = User::find($request->session()->get('USER_ID'));
         $province = Province::all();
-        return view('client.checkout', compact('category','user','cart_qty','province'));
+        return view('client.checkout', compact('category','user','cart_qty','province','cartDetails', 'img', 'nameProduct','total_all','quantity_all'));
+    }
+
+    public function thankyou(Request $request){
+        $cart_qty = 0;
+        if($request->session()->has('USER_ID')){
+            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        }
+
+        $category = Category::all();
+        return view('client.thankyou',compact('category','cart_qty'));
+    }
+
+    public function order(Request $request){
+        $category = Category::all();
+        $order = Order::where('user_id',$request->session()->get('USER_ID'))->get();
+        return view('client.order',compact('order','category'));
     }
 
     public function district(Request $request){
@@ -161,7 +193,7 @@ class UserController extends Controller
         $ward = Ward::where('district_id',$request->id_district)->get();
         $html = '<option selected>------Choose Ward------</option>';
         foreach($ward as $item){
-            $html .= '<option value= "'.$item->ward_id .'" > ' .$item->name .'</option>';
+            $html .= '<option value= "'.$item->wards_id .'" > ' .$item->name .'</option>';
                
         }
         return $html;

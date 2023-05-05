@@ -11,7 +11,9 @@ class CartController extends Controller
 {
     public function create(Request $request){
         
-        
+        $request->validate([
+            'quantity' => 'integer|min:1|max:100',
+        ]);
         try{
             DB::beginTransaction();
             $cart = Cart::firstOrCreate([

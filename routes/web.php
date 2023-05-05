@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Models\Cart;
@@ -41,6 +42,10 @@ Route::middleware('user_auth')->group(function(){
     Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout');
     Route::get('/district', [UserController::class, 'district']);
     Route::get('/ward', [UserController::class, 'ward']);
+    Route::post('/add-order', [OrderController::class, 'create'])->name('user.checkout');
+    Route::get('/thankyou', [UserController::class, 'thankyou'])->name('thankyou');
+    Route::get('/order',[UserController::class, 'order'])->name('order');
+
 });
 
 
@@ -78,8 +83,9 @@ Route::middleware('admin_auth')->prefix('admin')->group(function () {
     // //product routes
     Route::resource('product', ProductController::class);
     Route::post('product/featured',[ProductController::class, 'product_featured']);
-
-
+    Route::get('/order',[OrderController::class, 'index'])->name('order');
+    Route::get('/order-detail',[OrderController::class, 'detail'])->name('order.detail');
+    Route::get('/invoice',[OrderController::class, 'invoice'])->name('invoice');
 
     Route::get('/logout', function () {
         session()->forget('ADMIN_LOGIN');

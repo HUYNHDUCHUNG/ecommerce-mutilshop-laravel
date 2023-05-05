@@ -9711,3 +9711,18 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translateY(-15px);
   }
 }
+
+.table-checkout tr:last-child{
+  border-top: 1px solid grey;
+}
+.table-checkout tr td,
+.table_payment tr td
+{
+  border: none;
+}
+.table-checkout tr td a{
+  color: black;
+  text-decoration: none;
+  
+}
+

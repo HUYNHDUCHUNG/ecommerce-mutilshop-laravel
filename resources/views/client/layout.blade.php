@@ -52,7 +52,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="#"><button class="dropdown-item" type="button">Thông
                                         tin cá nhân</button></a>
-                                        <a href="#"><button class="dropdown-item" type="button">Đơn Hàng</button></a>
+                                        <a href="{{ route('order    ') }}"><button class="dropdown-item" type="button">Đơn Hàng</button></a>
                                 <a href="{{ route('user.logout') }}"><button class="dropdown-item" type="button">Đăng xuất</button></a>
                             </div>
                         </div>
