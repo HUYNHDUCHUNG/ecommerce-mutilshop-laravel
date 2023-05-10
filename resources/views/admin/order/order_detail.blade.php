@@ -68,7 +68,7 @@
                                     <span class="badge rounded-pill bg-blue " style="line-height: unset">{{ $order->orderStatus->name }}</span>
                                 </div>
                                 <div class="d-flex">
-                                    <a class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text " href="{{ route('invoice',['id' => $order->id]) }}"><i
+                                    <a class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text " href="{{ route('invoice',['id' => $order->id]) }}" target="_blank"><i
                                             class="bi bi-download"></i> <span class="text">Invoice</span></a>
                                     {{-- <div class="dropdown">
                                         <button class="btn btn-link p-0 text-muted" type="button"

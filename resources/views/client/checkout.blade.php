@@ -41,7 +41,7 @@
                                 <select class="custom-select" name="province" id="loadProvince">
                                     <option selected disabled>------Choose Province------</option>
                                     @foreach ($province as $item)
-                                        <option value="{{ $item->province_id }}">{{ $item->name }}</option>
+                                        <option {{ $user->province == $item->province_id ? 'selected' : '' }} value="{{ $item->province_id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -50,17 +50,23 @@
                                 <label>District</label>
                                 <select class="custom-select" id="loadDistrict" name="district">
                                     <option selected disabled>------Choose District------</option>
+                                    @foreach ($district as $item)
+                                        <option {{ $user->district == $item->district_id ? 'selected' : '' }} value="{{ $item->district_id }}">{{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Ward</label>
                                 <select class="custom-select" id="loadWard" name="ward">
                                     <option selected disabled>------Choose Ward------</option>
+                                    @foreach ($ward as $item)
+                                        <option {{ $user->ward == $item->wards_id ? 'selected' : '' }} value="{{ $item->wards_id }}">{{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>Specific Address</label>
-                                <input class="form-control" type="text" placeholder="123 Street" name="address">
+                                <input class="form-control" type="text" placeholder="123 Street" name="address" value="{{ $user->address }}">
                             </div>
 
                         </div>

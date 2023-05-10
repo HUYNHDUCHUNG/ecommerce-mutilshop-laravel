@@ -44,7 +44,10 @@ Route::middleware('user_auth')->group(function(){
     Route::get('/ward', [UserController::class, 'ward']);
     Route::post('/add-order', [OrderController::class, 'create'])->name('user.checkout');
     Route::get('/thankyou', [UserController::class, 'thankyou'])->name('thankyou');
-    Route::get('/order',[UserController::class, 'order'])->name('order');
+    Route::get('/order',[UserController::class, 'order'])->name('user.order');
+    Route::get('/order-filter',[UserController::class, 'order_filter']);
+    Route::get('/profile',[UserController::class, 'profile'])->name('user.profile');
+    Route::post('/edit-profile',[UserController::class, 'edit_profile'])->name('user.edit_profile');
 
 });
 
@@ -84,7 +87,11 @@ Route::middleware('admin_auth')->prefix('admin')->group(function () {
     Route::resource('product', ProductController::class);
     Route::post('product/featured',[ProductController::class, 'product_featured']);
     Route::get('/order',[OrderController::class, 'index'])->name('order');
-    Route::get('/order-detail',[OrderController::class, 'detail'])->name('order.detail');
+    Route::get('/order-detail/{id}',[OrderController::class, 'detail'])->name('order.detail');
+    Route::get('/confirm-order/{id}',[OrderController::class, 'confirm'])->name('order.confirm');
+    Route::get('/completed-order/{id}',[OrderController::class, 'completed'])->name('order.completed');
+    Route::get('/order-filters',[OrderController::class, 'order_filter']);
+
     Route::get('/invoice',[OrderController::class, 'invoice'])->name('invoice');
 
     Route::get('/logout', function () {

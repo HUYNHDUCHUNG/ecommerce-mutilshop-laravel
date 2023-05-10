@@ -7,6 +7,7 @@ use App\Models\CartDetail;
 use App\Models\Category;
 use App\Models\District;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
@@ -26,13 +27,17 @@ class UserController extends Controller
     public function search_products(Request $request)
     {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
         $category = Category::all();
         //$product = Product::where('product_name', 'LIKE', '%' . $request->keyword . '%')->get();
         $product = Product::where('product_name', 'LIKE', '%' . $request->keyword . '%')->orWhere('product_brand', 'LIKE', '%' . $request->keyword . '%')->get();
-        return view('client.product', compact('category', 'product','cart_qty'));
+        return view('client.product', compact('category', 'product', 'cart_qty'));
     }
 
     public function product_filter(Request $request)
@@ -77,34 +82,46 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
-        
+
         $category = Category::all();
-        $product_featured = Product::where('product_featured' , 1)->get();  
+        $product_featured = Product::where('product_featured', 1)->get();
         $product_recent = Product::where('created_at', '>=', Carbon::now()->subDays(15))
-                   ->orderBy('created_at', 'desc')
-                   ->get();
-        return view('client.home', compact('category', 'product_featured','product_recent','cart_qty'));
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('client.home', compact('category', 'product_featured', 'product_recent', 'cart_qty'));
     }
     public function product(Request $request)
     {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
 
         $category = Category::all();
         $product = Product::all();
-        return view('client.product', compact('category', 'product','cart_qty'));
+        return view('client.product', compact('category', 'product', 'cart_qty'));
     }
 
     public function product_detail(Request $request)
     {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
 
         $category = Category::all();
@@ -115,13 +132,17 @@ class UserController extends Controller
         $textColor = $product->product_color;
         $size = explode(",", $textSize);
         $color = explode(",", $textColor);
-        return view('client.product-detail', compact('category', 'product', 'img','cart_qty','size','color'));
+        return view('client.product-detail', compact('category', 'product', 'img', 'cart_qty', 'size', 'color'));
     }
     public function cart(Request $request)
     {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
 
         $cartDetails = Cart::where('user_id', session()->get('USER_ID'))->first()->cartDetails()->latest()->get();
@@ -135,13 +156,17 @@ class UserController extends Controller
             $total_all += $item->price * $item->quantity;
         }
         $category = Category::all();
-        return view('client.cart', compact('category', 'cartDetails', 'img', 'nameProduct','cart_qty','total_all'));
+        return view('client.cart', compact('category', 'cartDetails', 'img', 'nameProduct', 'cart_qty', 'total_all'));
     }
     public function checkout(Request $request)
     {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
 
         $cartDetails = Cart::where('user_id', session()->get('USER_ID'))->first()->cartDetails()->latest()->get();
@@ -151,6 +176,8 @@ class UserController extends Controller
         $quantity_all = 0;
         foreach ($cartDetails as $item) {
             $model = Product::find($item->product_id);
+            $model->product_quantity -= $item->quantity;
+            $model->update();
             $img[] = $model->productImgs['0']->img_name;
             $nameProduct[] = $model->product_name;
             $total_all += $item->price * $item->quantity;
@@ -160,41 +187,124 @@ class UserController extends Controller
         $category = Category::all();
         $user = User::find($request->session()->get('USER_ID'));
         $province = Province::all();
-        return view('client.checkout', compact('category','user','cart_qty','province','cartDetails', 'img', 'nameProduct','total_all','quantity_all'));
+        $district = District::all();
+        $ward = Ward::all();
+        return view('client.checkout', compact('category', 'user', 'cart_qty', 'province', 'cartDetails', 'img', 'nameProduct', 'total_all', 'quantity_all', 'district', 'ward'));
     }
 
-    public function thankyou(Request $request){
+    public function thankyou(Request $request)
+    {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
 
         $category = Category::all();
-        return view('client.thankyou',compact('category','cart_qty'));
+        return view('client.thankyou', compact('category', 'cart_qty'));
     }
 
-    public function order(Request $request){
+    public function order(Request $request)
+    {
+        $cart_qty = 0;
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
+        }
+
         $category = Category::all();
-        $order = Order::where('user_id',$request->session()->get('USER_ID'))->get();
-        return view('client.order',compact('order','category'));
+        $status = OrderStatus::all();
+        $order = Order::where('user_id', $request->session()->get('USER_ID'))->latest()->get();
+        return view('client.order', compact('order', 'category', 'cart_qty', 'status'));
     }
+    public function order_filter(Request $request)
+    {
 
-    public function district(Request $request){
-        $district = District::where('province_id',$request->id_province)->get();
-        $html = '<option selected>------Choose District------</option>';
-        foreach($district as $item){
-            $html .= '<option value= "'.$item->district_id .'" > ' .$item->name .'</option>';
-               
+        if ($request->status == 'all') {
+            $order = Order::where('user_id', $request->session()->get('USER_ID'))->latest()->get();
+        } else {
+            $order = Order::where('user_id', $request->session()->get('USER_ID'))->where('status', $request->status)->latest()->get();
+        }
+        $html = '';
+
+        foreach ($order as $item) {
+            $html .= "<tr>
+                <th scope='row'>#" . $item->code . " </th>
+                <td>" . $item->fullname . "</td>
+                <td>" . $item->phonenumber . "</td>
+                <td>" . $item->address . "</td>
+                <td>" . $item->orderStatus->name . "</td>
+                <td>" . $item->created_at . "</td>
+              </tr>";
         }
         return $html;
     }
 
-    public function ward(Request $request){
-        $ward = Ward::where('district_id',$request->id_district)->get();
+    public function profile(Request $request)
+    {
+        $cart_qty = 0;
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
+        }
+
+        $category = Category::all();
+        $province = Province::all();
+        $district = District::all();
+        $ward = Ward::all();
+        $user = User::find($request->session()->get('USER_ID'));
+        return view('client.profile', compact('category', 'cart_qty', 'user', 'province', 'district', 'ward'));
+    }
+
+    public function edit_profile(Request $request)
+    {
+        $request->validate([
+            'fullname' => 'required',
+            'phonenumber' => 'required',
+            'province' => 'required',
+            'district' => 'required',
+            'ward' => 'required',
+            'specific' => 'required',
+
+        ]);
+
+        $model = User::find($request->session()->get('USER_ID'));
+        $model->name = $request->fullname;
+        $model->phonenumber = $request->phonenumber;
+        $model->province = $request->province;
+        $model->district = $request->district;
+        $model->ward = $request->ward;
+        $model->address = $request->specific;
+        $model->update();
+
+        return redirect()->route('user.profile');
+    }
+
+    public function district(Request $request)
+    {
+        $district = District::where('province_id', $request->id_province)->get();
+        $html = '<option selected>------Choose District------</option>';
+        foreach ($district as $item) {
+            $html .= '<option value= "' . $item->district_id . '" > ' . $item->name . '</option>';
+        }
+        return $html;
+    }
+
+    public function ward(Request $request)
+    {
+        $ward = Ward::where('district_id', $request->id_district)->get();
         $html = '<option selected>------Choose Ward------</option>';
-        foreach($ward as $item){
-            $html .= '<option value= "'.$item->wards_id .'" > ' .$item->name .'</option>';
-               
+        foreach ($ward as $item) {
+            $html .= '<option value= "' . $item->wards_id . '" > ' . $item->name . '</option>';
         }
         return $html;
     }
@@ -202,12 +312,16 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
 
         $category = Category::all();
-        return view('client.account.login', compact('category','cart_qty'));
+        return view('client.account.login', compact('category', 'cart_qty'));
     }
 
     public function auth_login(Request $request)
@@ -236,11 +350,15 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $cart_qty = 0;
-        if($request->session()->has('USER_ID')){
-            $cart_qty = Cart::where('user_id',$request->session()->get('USER_ID'))->first()->cartDetails->count();
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
         }
         $category = Category::all();
-        return view('client.account.register', compact('category','cart_qty'));
+        return view('client.account.register', compact('category', 'cart_qty'));
     }
 
     public function auth_register(Request $request)

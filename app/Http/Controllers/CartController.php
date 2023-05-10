@@ -29,7 +29,7 @@ class CartController extends Controller
                 CartDetail::create([
                     'cart_id' => $cart->id,
                     'product_id' => $request->id,
-                    'quantity' => '1',
+                    'quantity' => $request->quantity,
                     'price' => $request->price,
                     'size' => $request->size,
                     'color' => $request->color,

@@ -39,7 +39,7 @@
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Category</th>
-                                <th>Description</th>
+                                {{-- <th>Description</th> --}}
                                 <th style="text-align: center">Featured</th>
                                 <th>Action</th>
                             </tr>
@@ -53,11 +53,11 @@
                                             style="width: 100px; display: block">
                                     </td>
                                     <td>{{ $item->product_name }}</td>
-                                    <td>{{ $item->product_price }}$</td>
+                                    <td>{{ $item->product_price }}</td>
                                     <td>{{ $item->product_quantity }}</td>
                                     <td>{{ $item->getCategory->category_name }}</td>
                                     
-                                    <td >
+                                    {{-- <td >
                                     <div style="word-wrap: break-word;
                                     white-space: normal;
                                     overflow: hidden;
@@ -66,7 +66,7 @@
                                     -webkit-box-orient: vertical;
                                     -webkit-line-clamp: 2;">
                                         {{ $item->product_description }}
-                                    </div>
+                                    </div> --}}
                                     </td>
                                     <td style="text-align: center"><a href="" class="btn_featured" data-id = "{{ $item->id }}"><i style="font-size: 25px;" class="{{ $item->product_featured == 0 ? "far" : "fas"}} fa-star"></i></a></td>
                                     <td style="display: flex; gap : 10px">

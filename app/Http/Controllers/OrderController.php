@@ -17,7 +17,7 @@ class OrderController extends Controller
 
 
     public function index(){
-        $order = Order::all();
+        $order = Order::latest()->get();
         return view('admin.order.order',compact('order'));
     }
 
@@ -27,6 +27,61 @@ class OrderController extends Controller
         $order_detail = OrderDetail::where('order_id',$request->id)->get();
 
         return view('admin.order.order_detail',compact('order','order_detail'));
+    }
+
+    public function confirm(Request $request){
+        $model = Order::find($request->id);
+        $model->status = 1;
+        $model->update();
+        return back();
+    }
+    public function completed(Request $request){
+        $model = Order::find($request->id);
+        $model->status = 2;
+        $model->update();
+        return back();
+    }
+    public function order_filter(Request $request)
+    {
+
+        if ($request->status == 'all') {
+            $order = Order::latest()->get();
+        } else {
+            $order = Order::where('status', $request->status)->latest()->get();
+        }
+        $html = '';
+
+        foreach ($order as $item) {
+            $html .= "<tr class='action' data-id = ". $item->id. ">
+            <th><input type='checkbox'></th>
+            <td>#". $item->code ."</td>
+            
+            <td>". $item->fullname ."</td>
+            <td>". $item->total_price ."</td>
+            <td>". $item->orderStatus->name ."</td>
+            <td>". $item->created_at ."</td>
+            <td>". $item->updated_at ."</td>
+            
+            <td class='text-center'>
+                <a href='order-detail/". $item->id ."'><i class='fas fa-eye' style='font-size: 30px'></i></a>
+                
+            </td>";
+            if($item->orderStatus->id == 0){
+                $html.= "
+                    <td>
+                    <a href='confirm-order/". $item->id ."' class='btn btn-info' style='width: 90.59px'>Confirm</a>
+                </td>
+                ";
+            }elseif($item->orderStatus->id == 1){
+                $html.= "
+                    <td>
+                    <a href='completed-order/". $item->id ."' class='btn btn-success'>Completed</a>
+                </td>
+                ";
+            }
+            $html .= "</tr>";
+        }
+        return $html;
     }
 
     public function invoice(Request $request){
