@@ -11,6 +11,7 @@
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
+        "maatwebsite/excel": "^3.1",
         "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {

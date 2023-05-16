@@ -73,25 +73,29 @@
                         Nonumy</p> --}}
                     <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Sizes:</strong>
-                        
+
                         @foreach ($size as $key => $item)
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" class="custom-control-input" id="size-{{ $key }}" name="size" data-size = "{{ $item }}" {{ $key == 0 ? "checked" : "" }}>
-                            <label class="custom-control-label" for="size-{{ $key }}" style="user-select: none">{{ $item }}</label>
-                        </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="size-{{ $key }}"
+                                    name="size" data-size="{{ $item }}" {{ $key == 0 ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="size-{{ $key }}"
+                                    style="user-select: none">{{ $item }}</label>
+                            </div>
                         @endforeach
-                            
-                       
+
+
                     </div>
                     <div class="d-flex mb-4">
                         <strong class="text-dark mr-3">Colors:</strong>
-                            @foreach ($color as $key => $item)
+                        @foreach ($color as $key => $item)
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-{{ $key }}" name="color" data-color = "{{ $item }}"  {{ $key == 0 ? "checked" : "" }}>
-                                <label class="custom-control-label" for="color-{{ $key }}" style="user-select: none">{{ $item }}</label>
+                                <input type="radio" class="custom-control-input" id="color-{{ $key }}"
+                                    name="color" data-color="{{ $item }}" {{ $key == 0 ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="color-{{ $key }}"
+                                    style="user-select: none">{{ $item }}</label>
                             </div>
-                            @endforeach
-                        
+                        @endforeach
+
                     </div>
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
@@ -100,15 +104,15 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center"
-                                id="input_quantity" value="1">
+                            <input type="text" class="form-control bg-secondary border-0 text-center" id="input_quantity"
+                                value="1" readonly data-quantity = {{ $product->product_quantity }}>
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-plus">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3" id="btn_addCart"><i class="fa fa-shopping-cart mr-1"></i>
+                        <button  {{ $product->product_quantity < 1 ? 'disabled' : '' }} class="btn btn-primary px-3" id="btn_addCart"><i class="fa fa-shopping-cart mr-1"></i>
                             Add To
                             Cart</button>
                     </div>
@@ -136,14 +140,13 @@
             <div class="col">
                 <div class="bg-light p-30">
                     <div class="nav nav-tabs mb-4">
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab"
-                            href="#tab-pane-1">Description</a>
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab-pane-1">
                             <h4 class="mb-3">Product Description</h4>
-                                {{ $product->product_description }}
+                            {{ $product->product_description }}
                         </div>
                         <div class="tab-pane fade" id="tab-pane-3">
                             <div class="row">
@@ -375,9 +378,10 @@
     <script src="{{ asset('client/js/sweetalert2@11.js') }}"></script>
     <script>
         
-        
-        
-        
+
+
+
+
 
         $('#btn_addCart').on('click', function() {
             var price = $('.product_price').data('price');
@@ -395,9 +399,9 @@
                     price: price,
                     quantity: quantity,
                     size: size,
-                    color:color,
+                    color: color,
                 },
-                dataType : 'text',
+                dataType: 'text',
                 success: function(data) {
                     if (data == 'true') {
                         Swal.fire(
@@ -405,7 +409,7 @@
                             'Your product has been successfully added.',
                             'success'
                         )
-                    }else{
+                    } else {
                         Swal.fire(
                             'Product added!',
                             'Your product has been successfully added.',
@@ -416,5 +420,28 @@
                 }
             })
         })
+
+
+
+        $('.quantity button').on('click', function() {
+            var button = $(this);
+            var maxQuantity = $('#input_quantity').data('quantity');
+            var oldValue = button.parent().parent().find('input').val();
+            if (button.hasClass('btn-plus')) {
+                if(parseFloat(oldValue) < parseFloat(maxQuantity)){
+                    var newVal = parseFloat(oldValue) + 1;
+                }else{
+                    var newVal = maxQuantity;
+                }
+                
+            } else {
+                if (oldValue > 1) {
+                    var newVal = parseFloat(oldValue) - 1;
+                } else {
+                    newVal = 1;
+                }
+            }
+            button.parent().parent().find('input').val(newVal);
+        });
     </script>
 @endsection

@@ -12,6 +12,37 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+
+    public function _province()
+    {
+        return $this->belongsTo(Province::class, 'province','province_id');
+    }
+
+    public function _district()
+    {
+        return $this->belongsTo(District::class, 'district','district_id');
+    }
+
+    public function _ward()
+    {
+        return $this->belongsTo(Ward::class, 'ward','wards_id');
+    }
+
+    
+    // public function getAddressAttribute()
+    // {
+    //     $address = '';
+
+    //     if (!empty($this->province) && !empty($this->district) && !empty($this->ward)) {
+    //         $address .= ', ' . $this->province;
+    //         $address .= ',' . $this->district;
+    //         $address .= ',' . $this->ward;
+    //         $address .= ',' . $this->address;
+    //     }
+
+
+    //     return $address;
+    // }
     /**
      * The attributes that are mass assignable.
      *
@@ -41,6 +72,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    
 }

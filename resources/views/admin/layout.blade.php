@@ -330,7 +330,12 @@
                           <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Cancelled</a></li>
                         </ul> --}}
                       </li>
-
+                      <li class="active treeview">
+                        <a href="{{ route('customer') }}">
+                            <i class="fas fa-user"></i> <span>Customer</span>
+                          {{-- <i class="fa fa-angle-left pull-right"></i> --}}
+                        </a>
+                      </li>
                     
                 </ul>
             </section>

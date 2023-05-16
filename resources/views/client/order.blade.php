@@ -30,7 +30,8 @@
         <th>Address</th>
         <th>Status</th>
         <th>Order Date</th>
-
+        <th>Detail</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -39,9 +40,14 @@
         <th scope="row">#{{ $item->code }}</th>
         <td>{{ $item->fullname }}</td>
         <td>{{ $item->phonenumber }}</td>
-        <td>{{ $item->address }}</td>
+        <td >{{ $item->address }}</td>
         <td>{{ $item->orderStatus->name }}</td>
         <td>{{ $item->created_at }}</td>
+        <td><a href="{{ route('user.order.detail',['id' => $item->id]) }}">Detail</a></td>
+        @if ($item->status == 0)
+        <td><a href="{{ route('user.cancel.order',['id' =>$item->id]) }}" class="btn btn-danger">Cancel</a></td>
+        @endif
+        
       </tr>
       @empty
       <tr>

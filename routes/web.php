@@ -45,7 +45,9 @@ Route::middleware('user_auth')->group(function(){
     Route::post('/add-order', [OrderController::class, 'create'])->name('user.checkout');
     Route::get('/thankyou', [UserController::class, 'thankyou'])->name('thankyou');
     Route::get('/order',[UserController::class, 'order'])->name('user.order');
+    Route::get('/order-detail/{id}',[UserController::class, 'order_detail'])->name('user.order.detail');
     Route::get('/order-filter',[UserController::class, 'order_filter']);
+    Route::get('/cancel-order/{id}',[UserController::class, 'cancel_order'])->name('user.cancel.order');
     Route::get('/profile',[UserController::class, 'profile'])->name('user.profile');
     Route::post('/edit-profile',[UserController::class, 'edit_profile'])->name('user.edit_profile');
 
@@ -93,7 +95,8 @@ Route::middleware('admin_auth')->prefix('admin')->group(function () {
     Route::get('/order-filters',[OrderController::class, 'order_filter']);
 
     Route::get('/invoice',[OrderController::class, 'invoice'])->name('invoice');
-
+    Route::get('/customer',[UserController::class, 'listCustomer'])->name('customer');
+    Route::get('/export-users',[UserController::class, 'exportUsers'] )->name('export.users');
     Route::get('/logout', function () {
         session()->forget('ADMIN_LOGIN');
         session()->forget('ADMIN_ID');

@@ -7,6 +7,7 @@ use App\Models\CartDetail;
 use App\Models\Category;
 use App\Models\District;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Models\Province;
@@ -18,12 +19,24 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-
+use Maatwebsite\Excel\Facades\Excel;
 use function PHPSTORM_META\type;
-
+use App\Http\Controllers\UserExport;
 class UserController extends Controller
 {
 
+    public function exportUsers()
+    {
+        return Excel::download(new UserExport, 'users.xlsx');
+    }
+
+    public function listCustomer(){
+        $customer = User::all();
+        $address = '';
+        
+        
+        return view('admin.customer.customer',compact('customer'));
+    }
     public function search_products(Request $request)
     {
         $cart_qty = 0;
@@ -223,6 +236,32 @@ class UserController extends Controller
         $order = Order::where('user_id', $request->session()->get('USER_ID'))->latest()->get();
         return view('client.order', compact('order', 'category', 'cart_qty', 'status'));
     }
+
+    public function order_detail(Request $request){
+        
+
+        $cart_qty = 0;
+        if ($request->session()->has('USER_ID')) {
+            if (Cart::where('user_id', $request->session()->get('USER_ID'))->first()) {
+                $cart_qty = Cart::where('user_id', $request->session()->get('USER_ID'))->first()->cartDetails->count();
+            } else {
+                $cart_qty = 0;
+            }
+        }
+        $category = Category::all();
+        $order = Order::find($request->id);
+        $order_detail = OrderDetail::where('order_id',$request->id)->get();
+
+        return view('client.order-detail',compact('order','order_detail','category','cart_qty'));
+    }
+
+    public function cancel_order(Request $request){
+        $model = Order::find($request->id);
+        $model->status = 3;
+        $model->update();
+        return back();
+    }
+
     public function order_filter(Request $request)
     {
 
@@ -238,10 +277,16 @@ class UserController extends Controller
                 <th scope='row'>#" . $item->code . " </th>
                 <td>" . $item->fullname . "</td>
                 <td>" . $item->phonenumber . "</td>
-                <td>" . $item->address . "</td>
+                <td >" . $item->address . "</td>
                 <td>" . $item->orderStatus->name . "</td>
                 <td>" . $item->created_at . "</td>
+                <td><a href='order-detail/". $item->id. " '>Detail</a></td>
+                
               </tr>";
+
+              if($item->status == 0){
+                $html .= "<td><a href='user.cancel.order/ " . $item->id . "' class='btn btn-danger'>Cancel order</a></td>";
+              }
         }
         return $html;
     }
