@@ -210,7 +210,7 @@
     <!-- Shop Detail End -->
 
 
-    <!-- Products Start -->
+    {{-- <!-- Products Start -->
     <div class="container-fluid py-5">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May
                 Also Like</span></h2>
@@ -371,7 +371,7 @@
             </div>
         </div>
     </div>
-    <!-- Products End -->
+    <!-- Products End --> --}}
 @endsection
 
 @section('js')

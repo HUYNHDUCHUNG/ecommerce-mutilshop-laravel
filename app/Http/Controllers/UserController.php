@@ -37,6 +37,19 @@ class UserController extends Controller
         
         return view('admin.customer.customer',compact('customer'));
     }
+
+    // public function getAddress(Request $request){
+    //     $province = Province::where('province_id',$request->province)->first()->name;
+    //     $district = District::where('district_id',$request->district)->first()->name;
+    //     $ward = Ward::where('wards_id',$request->ward)->first()->name;
+    //     if($province != null && $district != null && $ward != null){
+    //         $address = $province . ',' . $district . ',' . $ward;
+    //         return response()->json('address', $address);
+    //     }else{
+    //         $address = '';
+    //         return response()->json('address', $address);
+    //     }
+    // }
     public function search_products(Request $request)
     {
         $cart_qty = 0;
@@ -274,7 +287,7 @@ class UserController extends Controller
 
         foreach ($order as $item) {
             $html .= "<tr>
-                <th scope='row'>#" . $item->code . " </th>
+                <td scope='row'>#" . $item->code . " </td>
                 <td>" . $item->fullname . "</td>
                 <td>" . $item->phonenumber . "</td>
                 <td >" . $item->address . "</td>
@@ -282,10 +295,10 @@ class UserController extends Controller
                 <td>" . $item->created_at . "</td>
                 <td><a href='order-detail/". $item->id. " '>Detail</a></td>
                 
-              </tr>";
+              ";
 
               if($item->status == 0){
-                $html .= "<td><a href='user.cancel.order/ " . $item->id . "' class='btn btn-danger'>Cancel order</a></td>";
+                $html .= "<td><a href='cancel-order/ " . $item->id . "' class='btn btn-danger'>Cancel</a></td></tr>";
               }
         }
         return $html;

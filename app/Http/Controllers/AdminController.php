@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -38,7 +41,13 @@ class AdminController extends Controller
     }
 
     public function dashboard(){
-        return view('admin.dashboard');
+        $total_order = Order::all()->count();
+        $total_sale = Order::where('status',2)->sum('total_price');
+        $total_sale /= 1000000;
+        $customer = User::all()->count();
+        $date = Carbon::today()->format('Y-m-d');
+        $order_today = Order::whereDate('created_at',$date)->count();
+        return view('admin.dashboard',compact('total_order','total_sale','customer','order_today'));
     }
 
 

@@ -1,0 +1,197 @@
+:root{
+    --main-color:  #008DDA;
+    --seccond-color: #fd9905;
+    --bg-color: #f5f5fa;
+    --text-color: #808089;
+}
+a{
+    text-decoration: none !important;
+
+}
+a:hover{
+    text-decoration: none !important;
+}
+
+i{
+    color: var(--main-color) !important;
+}
+
+body>.container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex{
+    background-color: var(--main-color)!important;
+}
+body > .container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div:nth-child(1) > a > span{
+    color: #fff;
+}
+
+body > .container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-6.col-6.text-left > form > input{
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+body >.container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-6.col-6.text-left > form > input:focus{
+    border-color: var(--text-color);
+}
+body >.container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-6.col-6.text-left > form > button{
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background: #fff;
+}
+body >.container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > a{
+    color: #fff !important;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body> .container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > a:hover{
+    background-color: #27272a1f;
+    
+    
+}
+
+body >.container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > div{
+    position: relative;
+}
+body > .container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > div::after{
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 2px;
+    height: 60%;
+    transform: translateY(-50%);
+    background-color: #fff;
+}
+
+body > .container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > div > a{
+    position: relative;
+}
+body > .container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > div > a > span{
+    color: #fff !important;
+    position: absolute;
+    background-color: #fb2d3b;
+    top: 0;
+    right: -17px;
+    border: none !important;
+
+}
+
+
+/* menu-bar */
+body > div.container-fluid.bg-dark.mb-30 > div{
+    box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .18);
+}
+
+body > div.container-fluid.bg-dark.mb-30 > div > div.col-lg-3.d-none.d-lg-block > a{
+    background-color: var(--seccond-color) !important;
+}
+body > div.container-fluid.bg-dark.mb-30 > div > div.col-lg-3.d-none.d-lg-block > a:hover{
+    background-color: #ffb700 !important;
+}
+
+body > div.container-fluid.bg-dark.mb-30 > div > div.col-lg-3.d-none.d-lg-block > a > h6{
+    color: #fff !important;
+}
+body > div.container-fluid.bg-dark.mb-30 > div > div.col-lg-3.d-none.d-lg-block > a > h6 > i{
+    color: #fff !important;
+}
+body > div.container-fluid.bg-dark.mb-30 > div > div.col-lg-3.d-none.d-lg-block > a > i{
+    color: #fff !important;
+}
+
+body > div.container-fluid.bg-dark.mb-30 > div > div.col-lg-3.d-none.d-lg-block > a > i{
+    color: var(--main-color);
+}
+#navbarCollapse > div > a{
+    color: #ffb700;
+}
+
+/* slide  */
+#header-carousel{
+    border-radius: 8px;
+    overflow: hidden;
+}
+body > div.container-fluid.mb-3 > div > div.col-lg-4 > div{
+    border-radius: 8px;
+    overflow: hidden;
+}
+/* feture start */
+body > div:nth-child(4){
+    background-color: var(--main-color);
+}
+body > div:nth-child(4) > ul{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    
+}
+body > div:nth-child(4) > ul > li{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 15px 0;
+}
+body > div:nth-child(4) > ul > li > i{
+    color: #fff !important;
+    font-size: 28px;
+}
+body > div:nth-child(4) > ul > li> div > h4{
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: block;
+    margin: 0;
+}
+body > div:nth-child(4) > ul > li> div > p{
+    margin: 0;
+    color: #0e50a5 !important;
+    display: block;
+    text-align: left;
+    margin: 0;
+    text-transform: capitalize;
+}
+
+/* product feture  */
+body > div:nth-child(5) > div > div > div{
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 15px;
+}
+body > div:nth-child(5) > div > div > div > h3{
+    padding: 10px 0;
+}
+
+body > div:nth-child(5) > div > div > div > div > div > div{
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .18);
+    overflow: hidden;
+}
+body > div:nth-child(5) > div > div > div > div > div > div > div.text-center.py-4 > div.d-flex.align-items-center.justify-content-center.mb-1 > small{
+    color: var(--seccond-color) !important;
+}
+
+
+/* footer  */
+body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.px-xl-5.pt-5 > div.col-lg-8.col-md-12 > div > div > div > a{
+    color: #3D464D !important;
+}
+
+body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.px-xl-5.pt-5 > div.col-lg-8.col-md-12 > div > div > div > a > i{
+    color: #3D464D !important;
+}
+
+
+body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.border-top.mx-xl-5.py-4 > div.col-md-12.px-xl-0 > p{
+    text-align: center !important;
+}
+
+body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.border-top.mx-xl-5.py-4 > div > p > a{
+    color: #3D464D !important;
+}

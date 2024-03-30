@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+
 <div class="row">
     {{-- @if (session('msg'))
         <div class="col-md-5">
@@ -61,7 +62,7 @@
                                 
                                 <td>{{ $item->fullname }}</td>
                                 <td>{{ $item->total_price }}</td>
-                                <td>{{ $item->orderStatus->name }}</td>
+                                <td class="status">{{ $item->orderStatus->name }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:i:s') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->updated_at)->format('d-m-Y H:i:s') }}</td>
                                 
@@ -70,11 +71,19 @@
                                     
                                 </td>
                                 <td>
-                                    @if($item->orderStatus->id == 0)
-                                        <a href="{{ route('order.confirm',['id' => $item->id]) }}" class="btn btn-info" style="width: 90.59px">Confirm</a>
-                                    @elseif ($item->orderStatus->id == 1)
-                                        <a href="{{ route('order.completed',['id' => $item->id]) }}"  class="btn btn-success">Completed</a>
-                                    @endif
+                                    
+                                    <div class="dropdown">
+                                        <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Status
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            @foreach ($status as $item_status)
+                                            <li><a href="#" class="edit_status" data-order = "{{ $item->id }}" data-status = "{{ $item_status->id }}">{{ $item_status->name }}</a></li>
+                                            @endforeach
+                                
+                                        </ul>
+                                      </div>
+
+    
                                 </td>
                             </tr>
                         @endforeach
@@ -90,6 +99,25 @@
 
 <script>
     $(document).ready(function(){
+        $('#myTable').on('click','a.edit_status',function(e)
+        {
+            e.preventDefault();
+            var order_id = $(this).data('order');
+            var status_id = $(this).data('status');
+            var td = $(this).closest('tr').find('.status');
+            $.ajax({
+                url: 'edit-status',
+                method: 'GET',
+                dataType: 'json',
+                data:{
+                    order_id: order_id,
+                    status_id: status_id,
+                },
+                success: function (data) {
+                  td.html(data);  
+                }
+            })
+        })
         
         $('#status').on('change', function(){
             var status = $(this).val();

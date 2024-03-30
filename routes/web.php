@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaypalController;
 use App\Models\Cart;
 use App\Models\ImgProduct;
 use App\Models\Product;
@@ -42,7 +43,7 @@ Route::middleware('user_auth')->group(function(){
     Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout');
     Route::get('/district', [UserController::class, 'district']);
     Route::get('/ward', [UserController::class, 'ward']);
-    Route::post('/add-order', [OrderController::class, 'create'])->name('user.checkout');
+    
     Route::get('/thankyou', [UserController::class, 'thankyou'])->name('thankyou');
     Route::get('/order',[UserController::class, 'order'])->name('user.order');
     Route::get('/order-detail/{id}',[UserController::class, 'order_detail'])->name('user.order.detail');
@@ -50,7 +51,11 @@ Route::middleware('user_auth')->group(function(){
     Route::get('/cancel-order/{id}',[UserController::class, 'cancel_order'])->name('user.cancel.order');
     Route::get('/profile',[UserController::class, 'profile'])->name('user.profile');
     Route::post('/edit-profile',[UserController::class, 'edit_profile'])->name('user.edit_profile');
-
+    //payment
+    Route::post('/add-order', [PaypalController::class, 'create'])->name('paypal.checkout');
+    Route::get('/payment/paypal/return',[PaypalController::class, 'return'])->name('payment.paypal_return');
+    Route::get('/payment/paypal/cancel',[PaypalController::class, 'cancel'])->name('payment.paypal_cancel');
+    
 });
 
 
@@ -90,6 +95,7 @@ Route::middleware('admin_auth')->prefix('admin')->group(function () {
     Route::post('product/featured',[ProductController::class, 'product_featured']);
     Route::get('/order',[OrderController::class, 'index'])->name('order');
     Route::get('/order-detail/{id}',[OrderController::class, 'detail'])->name('order.detail');
+    Route::get('/edit-status',[OrderController::class, 'edit_status']);
     Route::get('/confirm-order/{id}',[OrderController::class, 'confirm'])->name('order.confirm');
     Route::get('/completed-order/{id}',[OrderController::class, 'completed'])->name('order.completed');
     Route::get('/order-filters',[OrderController::class, 'order_filter']);

@@ -3207,7 +3207,7 @@ input[type="button"].btn-block {
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
-  color: #16181b;
+  color: var(--text-color);
   text-decoration: none;
   background-color: #f8f9fa;
 }
@@ -5847,11 +5847,11 @@ a.close.disabled {
   overflow: hidden;
 }
 
-.carousel-inner::after {
-  display: block;
-  clear: both;
-  content: "";
-}
+  /* .carousel-inner::after {
+    display: block;
+    clear: both;
+    content: "";
+  } */
 
 .carousel-item {
   position: relative;
@@ -5980,6 +5980,7 @@ a.close.disabled {
   margin-right: 15%;
   margin-left: 15%;
   list-style: none;
+
 }
 
 .carousel-indicators li {
@@ -5997,6 +5998,7 @@ a.close.disabled {
   border-bottom: 10px solid transparent;
   opacity: .5;
   transition: opacity 0.6s ease;
+  border-radius: 50%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6095,7 +6097,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #FFD333 !important;
+  background-color: #fff!important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
@@ -6165,7 +6167,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #3D464D !important;
+  background-color: #fff !important;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
@@ -9265,7 +9267,7 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #FFD333 !important;
+  color: #fff !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
@@ -9273,7 +9275,6 @@ a.text-primary:hover, a.text-primary:focus {
 }
 
 .text-secondary {
-  color: #F5F5F5 !important;
 }
 
 a.text-secondary:hover, a.text-secondary:focus {
@@ -9321,7 +9322,7 @@ a.text-light:hover, a.text-light:focus {
 }
 
 .text-dark {
-  color: #3D464D !important;
+  color: #fff !important;
 }
 
 a.text-dark:hover, a.text-dark:focus {
@@ -9502,7 +9503,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  padding: 20px 10px;
+  padding: 7px 15px;
   color: #F5F5F5;
   outline: none;
 }
@@ -9535,8 +9536,8 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .carousel-indicators li {
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   margin: 0 3px 12px 3px;
   background: transparent;
   border: 1px solid #FFFFFF;
@@ -9544,7 +9545,6 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .carousel-indicators .active {
-  width: 30px;
   background: #FFFFFF;
 }
 
@@ -9553,7 +9553,6 @@ a.text-dark:hover, a.text-dark:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(61, 70, 77, 0.5);
   z-index: 1;
 }
 
@@ -9725,4 +9724,14 @@ a.text-dark:hover, a.text-dark:focus {
   text-decoration: none;
   
 }
-
+.table_payment-method div{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.table_payment-method div img{
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 4px;
+}
