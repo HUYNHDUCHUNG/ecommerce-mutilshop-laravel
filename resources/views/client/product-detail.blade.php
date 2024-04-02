@@ -20,7 +20,7 @@
     <div class="container-fluid pb-5">
         <div class="row px-xl-5">
             <div class="col-lg-5 mb-30">
-                <div id="product-carousel" class="carousel slide product_id" data-ride="carousel"
+                <div id="product-carousel" class="carousel slide product_id boxshadow-custom rounded-lg overflow-hidden" data-ride="carousel"
                     data-id={{ $product->id }}>
                     <div class="carousel-inner bg-light">
                         <div class="carousel-item active">
@@ -54,7 +54,7 @@
             </div>
 
             <div class="col-lg-7 h-auto mb-30">
-                <div class="h-100 bg-light p-30">
+                <div class="h-100 bg-light p-30 boxshadow-custom rounded-lg overflow-hidden">
                     <h3>{{ $product->product_name }}</h3>
                     <div class="d-flex mb-3">
                         <div class="text-primary mr-2">
@@ -100,19 +100,19 @@
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
+                                <button class="btn btn-primary btn-minus btn-custom-shop">
+                                    <i class="fa fa-minus btn-icon"></i>
                                 </button>
                             </div>
                             <input type="text" class="form-control bg-secondary border-0 text-center" id="input_quantity"
                                 value="1" readonly data-quantity = {{ $product->product_quantity }}>
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
+                                <button class="btn btn-primary btn-plus btn-custom-shop">
+                                    <i class="fa fa-plus btn-icon"></i>
                                 </button>
                             </div>
                         </div>
-                        <button  {{ $product->product_quantity < 1 ? 'disabled' : '' }} class="btn btn-primary px-3" id="btn_addCart"><i class="fa fa-shopping-cart mr-1"></i>
+                        <button  {{ $product->product_quantity < 1 ? 'disabled' : '' }} class="btn px-3 btn-custom-shop" style="border-radius: 5px;" id="btn_addCart"><i class="fa fa-shopping-cart mr-1 btn-icon"></i>
                             Add To
                             Cart</button>
                     </div>
@@ -138,7 +138,7 @@
         </div>
         <div class="row px-xl-5">
             <div class="col">
-                <div class="bg-light p-30">
+                <div class="bg-light p-30 boxshadow-custom rounded-lg overflow-hidden">
                     <div class="nav nav-tabs mb-4">
                         <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
                         <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>

@@ -20,7 +20,7 @@
         <div class="row px-xl-5">
             <div class="col-lg-8 table-responsive mb-5">
                 <table class="table table-light table-borderless table-hover text-center mb-0">
-                    <thead class="thead-dark">
+                    <thead>
                         <tr>
                             <th>Hình ảnh</th>
                             <th>Sản phẩm</th>
@@ -37,14 +37,14 @@
                         @foreach ($cartDetails as $key => $item)
                             <tr data-id={{ $item->id }} class="item-cart">
                                 <td class="align-middle"><img src="{{ asset('storage/upload/' . $img[$key]) }}"
-                                        alt="" style="width: 80px;"></td>
+                                        alt="" style="width: 80px; border-radius: 4px"></td>
                                 <td>{{ $nameProduct[$key] }}</td>
                                 <td class="align-middle">{{ number_format($item->price) }}</td>
                                 <td class="align-middle">{{ $item->size }}</td>
                                 <td class="align-middle" style="width: 90px;">{{ $item->color }}</td>
 
                                 <td class="align-middle">
-                                    <div class="input-group quantity mx-auto " >
+                                    <div class="input-group quantity mx-auto ">
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm btn-custom-shop btn-minus">
                                                 <i class="fa fa-minus btn-icon"></i>
@@ -60,8 +60,9 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle total" style="width: 100px;">{{ number_format($item->price * $item->quantity) }}</td>
-                                <td class="align-middle"  style="width: 120px;"><button class="btn btn-sm btn-danger"><i
+                                <td class="align-middle total" style="width: 100px;">
+                                    {{ number_format($item->price * $item->quantity) }}</td>
+                                <td class="align-middle" style="width: 120px;"><button class="btn btn-sm btn-danger"><i
                                             class="fa fa-times btn-icon"></i></button></td>
                             </tr>
                         @endforeach
@@ -79,25 +80,29 @@
                         </div>
                     </div>
                 </form> --}}
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart
-                        Summary</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="border-bottom pb-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Subtotal</h6>
-                            <h6>{{ number_format($total_all) }}</h6>
+                <div class="bg-light boxshadow-custom p-4" style="border-radius: 8px">
+
+
+                    <h5 class="section-title position-relative text-uppercase mb-5">Tóm tắt giỏ hàng</h5>
+                    <div class="bg-light mb-5">
+                        <div class="border-bottom pb-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6>Subtotal</h6>
+                                <h6>{{ number_format($total_all) }}</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium">Shipping</h6>
+                                <h6 class="font-weight-medium">Free ship</h6>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">Free ship</h6>
+                        <div class="pt-2">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5>Total</h5>
+                                <h5>{{ number_format($total_all) }}</h5>
+                            </div>
+                            <a href="{{ route('checkout') }}"
+                                class="btn btn-block font-weight-bold my-3 py-3 btn-custom-shop" style="border-radius: 4px">Proceed To Checkout</a>
                         </div>
-                    </div>
-                    <div class="pt-2">
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5>Total</h5>
-                            <h5>{{ number_format($total_all)  }}</h5>
-                        </div>
-                        <a href="{{ route('checkout') }}" class="btn btn-block font-weight-bold my-3 py-3 btn-custom-shop">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>
@@ -118,7 +123,7 @@
             $('.btn-minus').on('click', function() {
                 // alert( $(this).closest('.item-cart').data('id'));
                 var btn = $(this)
-                
+
                 var quantity = $(this).closest('.quantity').find('input').first().val();
                 if (quantity == 0) {
 
