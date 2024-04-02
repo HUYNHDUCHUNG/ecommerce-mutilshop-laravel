@@ -6,9 +6,9 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                    <span class="breadcrumb-item active">Checkout</span>
+                    <a class="breadcrumb-item " href="#">Trang chủ</a>
+                    <a class="breadcrumb-item " href="#">Giỏ hàng</a>
+                    <span class="breadcrumb-item active">Thanh toán</span>
                 </nav>
             </div>
         </div>
@@ -157,7 +157,7 @@
             <tr>
                 <td>
                     <div>
-                        <input value="paypal" name="payment-method" type="radio" >
+                        <input value="paypal" name="payment_method" type="radio" >
                         <img src="{{asset('client/img/paypal.png')}}" alt="">
                         <span>Payment via Paypal</span>
                     </div>
@@ -166,7 +166,7 @@
             <tr>
                 <td>
                     <div>
-                        <input value="cod" name="payment-method"  type="radio" checked>
+                        <input value="cod" name="payment_method"  type="radio" checked>
                         <img src="{{asset('client/img/payment-cod.png')}}" alt="">
                         <span>Payment on delivery</span>
                     </div>
@@ -175,7 +175,7 @@
             <tr>
                 <td>
                     <div>
-                        <input value="momo" name="payment-method"  type="radio">
+                        <input value="momo" name="payment_method"  type="radio">
                         <img src="{{asset('client/img/payment-momo.png')}}" alt="">
                         <span>Payment by Momo</span>
                     </div>
@@ -240,7 +240,7 @@
                                     <a href="{{ route('product') }}" class="btn btn-warning btn-lg"
                                         style="padding: 5px 25px;font-weight: 700">Shopping</a>
                                 @else
-                                    <button type="submit" class="btn btn-warning btn-lg btn-submit"
+                                    <button type="submit" class="btn btn-custom-shop btn-lg btn-submit "
                                         style="padding: 5px 25px;font-weight: 700">Order</button>
                                 @endif
 

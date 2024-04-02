@@ -16,6 +16,18 @@ i{
     color: var(--main-color) !important;
 }
 
+.boxshadow-custom{
+    box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .18) !important;
+}
+.breadcrumb{
+    border-radius: 10px;
+    box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .18);
+}
+
+.bg-white{
+    background-color: #fff;
+}
+
 body>.container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex{
     background-color: var(--main-color)!important;
 }
@@ -78,6 +90,22 @@ body > .container-fluid > div.row.align-items-center.bg-light.py-3.px-xl-5.d-non
 
 }
 
+/* information user  */
+body > div:nth-child(1) > div > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > button{
+    min-width: 100px;
+    color: #fff;
+    border-radius: 8px;
+    margin-right: 5px;
+}
+body > div:nth-child(1) > div > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > button > i{
+    color: #fff !important;
+    margin-left: 10px;
+}
+body > div:nth-child(1) > div > div.col-lg-3.col-6.text-right > div:nth-child(1) > div > button:hover{
+    background-color: #27272a1f;
+}
+
+
 
 /* menu-bar */
 body > div.container-fluid.bg-dark.mb-30 > div{
@@ -118,7 +146,7 @@ body > div.container-fluid.mb-3 > div > div.col-lg-4 > div{
     overflow: hidden;
 }
 /* feture start */
-body > div:nth-child(4){
+#featured-start{
     background-color: var(--main-color);
 }
 body > div:nth-child(4) > ul{
@@ -195,3 +223,36 @@ body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.border-top
 body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.border-top.mx-xl-5.py-4 > div > p > a{
     color: #3D464D !important;
 }
+
+body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.px-xl-5.pt-5 > div.col-lg-4.col-md-12.mb-5.pr-3.pr-xl-5 > p > i{
+    color: var(--main-color) !important;
+}
+body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.px-xl-5.pt-5 > div.col-lg-8.col-md-12 > div > div:nth-child(3) > form > div > div > button{
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+    border-color: #0e50a5 !important;
+}
+body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.px-xl-5.pt-5 > div.col-lg-8.col-md-12 > div > div:nth-child(3) > div > a{
+    background-color: var(--main-color) !important;
+    border-color: #0e50a5 !important;
+}
+body > div.container-fluid.bg-dark.text-secondary.mt-5.pt-5 > div.row.px-xl-5.pt-5 > div.col-lg-8.col-md-12 > div > div:nth-child(3) > div > a > i{
+    color: #fff !important;
+}
+
+/* offer product */
+body > div:nth-child(6) > div > div > div{
+    border-radius: 8px;
+}
+
+/* button  */
+.btn-custom-shop{
+    background-color: var(--main-color) !important;
+    border: #0e50a5 !important;
+    color: #fff !important;
+}
+
+.btn-icon{
+    color: #fff !important;
+}
+

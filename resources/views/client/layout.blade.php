@@ -58,8 +58,12 @@
                 <div class="d-inline-flex align-items-center">
                     @if (Session()->has('USER_LOGIN'))
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                data-toggle="dropdown">{{ session('user')->name ?? null }}</button>
+                            <button type="button" class="btn btn-sm"
+                                data-toggle="dropdown">
+                                <i class="fas fa-user mr-1"></i>
+                                {{ session('user')->name ?? null }}
+                                <i class="fas fa-caret-down"></i>
+                            </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ route('user.profile') }}"><button class="dropdown-item" type="button">Thông
                                         tin cá nhân</button></a>
@@ -67,6 +71,13 @@
                                         Hàng</button></a>
                                 <a href="{{ route('user.logout') }}"><button class="dropdown-item" type="button">Đăng
                                         xuất</button></a>
+                            </div>
+                            <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                                <a href="{{ route('cart') }}" class="btn px-0 ml-3">
+                                    <i class="fas fa-shopping-cart text-primary"></i>
+                                    <span class="badge text-secondary border border-secondary rounded-circle"
+                                        style="padding-bottom: 2px;">{{ $cart_qty }}</span>
+                                </a>
                             </div>
                         </div>
                     @else
@@ -213,7 +224,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Your Email Address">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary">Sign Up</button>
+                                    <button class="btn btn-primary">Đăng ký</button>
                                 </div>
                             </div>
                         </form>

@@ -5,155 +5,141 @@
 
 @section('content')
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
         .center {
-            position: relative;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
+            border-radius: 8px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .center h1 {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid silver;
-        }
-
-        .center form {
-            padding: 0 40px;
-            box-sizing: border-box;
-        }
-
-        form .txt_field {
+            padding: 32px;
+            margin: auto;
+            float: none;
             position: relative;
-            border-bottom: 2px solid #adadad;
-            margin: 30px 0;
+            max-width: 640px;
+            box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .18);
         }
 
-        .txt_field input {
-            width: 100%;
-            padding: 0 5px;
-            height: 40px;
-            font-size: 16px;
-            border: none;
-            background: none;
-            outline: none;
-        }
-
-        .txt_field label {
-            position: absolute;
-            top: 50%;
-            left: 5px;
-            color: #adadad;
-            transform: translateY(-50%);
-            font-size: 16px;
-            pointer-events: none;
-            transition: .5s;
-        }
-
-        .txt_field span::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: #2691d9;
-            transition: .5s;
-        }
-
-        .txt_field input:focus~label,
-        .txt_field input:valid~label {
-            top: -5px;
-            color: #2691d9;
-        }
-
-        .txt_field input:focus~span::before,
-        .txt_field input:valid~span::before {
-            width: 100%;
-        }
-
-        .pass {
-            margin: -5px 0 20px 5px;
-            color: #a6a6a6;
-            cursor: pointer;
-        }
-
-        .pass:hover {
-            text-decoration: underline;
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            height: 50px;
-            border: 1px solid;
-            background: #2691d9;
-            border-radius: 25px;
-            font-size: 18px;
-            color: #e9f4fb;
-            font-weight: 700;
-            cursor: pointer;
-            outline: none;
-        }
-
-        input[type="submit"]:hover {
-            border-color: #2691d9;
-            transition: .5s;
-        }
-
-        .signup_link {
-            margin: 30px 0;
+        .center .title {
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem;
+            line-height: 1.5rem;
+            color: #0a0c0f;
+            font-weight: 600;
             text-align: center;
-            font-size: 16px;
-            color: #666666;
+            margin-bottom: 20px;
         }
 
-        .signup_link a {
-            color: #2691d9;
-            text-decoration: none;
+        .center .input-group {
+            padding: 10px 0;
         }
 
-        .signup_link a:hover {
-            text-decoration: underline;
+        .center .input-group span {
+            color: #000;
+
+        }
+
+        .center .input-group input {
+            width: 100%;
+            padding: 8px;
+        }
+
+        .center .btn-login {
+            width: 100%;
+            background-color: #008DDA;
+            color: #fff;
+            border: none;
+            padding: 10px 0;
+            border-radius: 10px;
+        }
+
+        .center .spacer {
+            position: relative;
+            padding: 20px 0;
+            text-align: center
+        }
+
+        .center .spacer::before {
+            position: absolute;
+            background-color: #a2abb4;
+            content: '';
+            width: 40%;
+            height: 2px;
+            top: 50%;
+            left: 0;
+        }
+
+        .center .spacer::after {
+            position: absolute;
+            background-color: #a2abb4;
+            content: '';
+            width: 40%;
+            height: 2px;
+            top: 50%;
+            right: 0;
+        }
+
+        .center .btn-ghost {
+            border: 1px solid #d1d6e0;
+            border-radius: 32px;
+            background: transparent;
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: #0a0c0f;
+            font-weight: 600;
+
+            padding: 12px 12px;
+            position: relative;
+            transition: all 150ms ease-in-out;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        .center .btn-ghost img {
+            width: 19px;
+            margin-right: 5px;
+        }
+        .center .signup_link{
+            margin-top: 15px;
+            justify-content: center;
+            text-align: center;
+        }
+        .center .signup_link > a{
+            color: #008DDA;
         }
     </style>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="center">
-                    <h1>Login</h1>
+                    <div class="title">Đăng nhập tài khoản của bạn</div>
                     <form method="post" action="{{ route('user.auth.login') }}">
                         @csrf
-                        <div class="txt_field">
-                            <input type="text" required placeholder="Email" name="email">
-                            <span></span>
+                        <div class="input-group">
+                            <span>Email:</span>
+                            <input type="text" required name="email">
                         </div>
-                        <div class="txt_field">
-                            <input type="password" required placeholder="Password" name="password">
-                            <span></span>
+                        <div class="input-group">
+                            <span>Password:</span>
+                            <input type="password" required name="password">
                         </div>
-                        {{-- <div class="pass">Forgot Password?</div> --}}
                         <span class="text-danger">{{ session('error') ?? null }}</span>
-                        <input type="submit" value="Login">
+                        <input class="btn-login" type="submit" value="ĐĂNG NHẬP">
+                        <div class="spacer">
+                            Hoặc
+                        </div>
+                        <a href="" class="btn-ghost">
+                            <img src="{{ asset('/client/img/logo-google.svg') }}" alt="Google">
+                            ĐĂNG NHẬP BẰNG TÀI KHOẢN GOOGLE
+                        </a>
+                        <a href="" class="btn-ghost">
+                            <img src="{{ asset('/client/img/logo-facebook.svg') }}" alt="facebook">
+                            ĐĂNG NHẬP BẰNG TÀI KHOẢN FACEBOOK
+                        </a>
+
+
                         <div class="signup_link">
-                            Not a member? <a href="{{ route('user.register') }}">Signup</a>
+                            Đăng ký tài khoản tại <a href="{{ route('user.register') }}">Đây</a>
                         </div>
                     </form>
                 </div>

@@ -6,9 +6,9 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                    <span class="breadcrumb-item active">Shop Detail</span>
+                    <a class="breadcrumb-item" href="#">Trang chủ</a>
+                    <a class="breadcrumb-item" href="#">Sản phẩm</a>
+                    <span class="breadcrumb-item active">Chi tiết Sản phẩm</span>
                 </nav>
             </div>
         </div>
@@ -72,7 +72,7 @@
                         clita ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea
                         Nonumy</p> --}}
                     <div class="d-flex mb-3">
-                        <strong class="text-dark mr-3">Sizes:</strong>
+                        <strong class=" mr-3">Sizes:</strong>
 
                         @foreach ($size as $key => $item)
                             <div class="custom-control custom-radio custom-control-inline">
@@ -86,7 +86,7 @@
 
                     </div>
                     <div class="d-flex mb-4">
-                        <strong class="text-dark mr-3">Colors:</strong>
+                        <strong class=" mr-3">Colors:</strong>
                         @foreach ($color as $key => $item)
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" class="custom-control-input" id="color-{{ $key }}"
@@ -117,18 +117,18 @@
                             Cart</button>
                     </div>
                     <div class="d-flex pt-2">
-                        <strong class="text-dark mr-2">Share on:</strong>
+                        <strong class=" mr-2">Share on:</strong>
                         <div class="d-inline-flex">
-                            <a class="text-dark px-2" href="">
+                            <a class=" px-2" href="">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a class="text-dark px-2" href="">
+                            <a class=" px-2" href="">
                                 <i class="fab fa-twitter"></i>
                             </a>
-                            <a class="text-dark px-2" href="">
+                            <a class=" px-2" href="">
                                 <i class="fab fa-linkedin-in"></i>
                             </a>
-                            <a class="text-dark px-2" href="">
+                            <a class=" px-2" href="">
                                 <i class="fab fa-pinterest"></i>
                             </a>
                         </div>
@@ -140,8 +140,8 @@
             <div class="col">
                 <div class="bg-light p-30">
                     <div class="nav nav-tabs mb-4">
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
-                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                        <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab-pane-1">

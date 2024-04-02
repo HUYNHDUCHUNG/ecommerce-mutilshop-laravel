@@ -6,9 +6,8 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                    <span class="breadcrumb-item active">Shopping Cart</span>
+                    <a class="breadcrumb-item" href="#">Trang chủ</a>
+                    <span class="breadcrumb-item active">Giỏ hàng</span>
                 </nav>
             </div>
         </div>
@@ -23,47 +22,47 @@
                 <table class="table table-light table-borderless table-hover text-center mb-0">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Price</th>
+                            <th>Hình ảnh</th>
+                            <th>Sản phẩm</th>
+                            <th>Giá tiền</th>
 
                             <th>Size</th>
-                            <th>Color</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Remove</th>
+                            <th>Màu sắc</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                            <th>Xóa</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
                         @foreach ($cartDetails as $key => $item)
                             <tr data-id={{ $item->id }} class="item-cart">
                                 <td class="align-middle"><img src="{{ asset('storage/upload/' . $img[$key]) }}"
-                                        alt="" style="width: 50px;"></td>
+                                        alt="" style="width: 80px;"></td>
                                 <td>{{ $nameProduct[$key] }}</td>
                                 <td class="align-middle">{{ number_format($item->price) }}</td>
                                 <td class="align-middle">{{ $item->size }}</td>
-                                <td class="align-middle">{{ $item->color }}</td>
+                                <td class="align-middle" style="width: 90px;">{{ $item->color }}</td>
 
                                 <td class="align-middle">
-                                    <div class="input-group quantity mx-auto " style="width: 100px;">
+                                    <div class="input-group quantity mx-auto " >
                                         <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-primary btn-minus">
-                                                <i class="fa fa-minus"></i>
+                                            <button class="btn btn-sm btn-custom-shop btn-minus">
+                                                <i class="fa fa-minus btn-icon"></i>
                                             </button>
                                         </div>
                                         <input type="text"
                                             class="form-control form-control-sm bg-secondary border-0 text-center"
                                             value="{{ $item->quantity }}">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-primary btn-plus">
-                                                <i class="fa fa-plus"></i>
+                                            <button class="btn btn-sm btn-custom-shop btn-plus">
+                                                <i class="fa fa-plus btn-icon"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle total">{{ number_format($item->price * $item->quantity) }}</td>
-                                <td class="align-middle"><button class="btn btn-sm btn-danger"><i
-                                            class="fa fa-times"></i></button></td>
+                                <td class="align-middle total" style="width: 100px;">{{ number_format($item->price * $item->quantity) }}</td>
+                                <td class="align-middle"  style="width: 120px;"><button class="btn btn-sm btn-danger"><i
+                                            class="fa fa-times btn-icon"></i></button></td>
                             </tr>
                         @endforeach
 
@@ -98,7 +97,7 @@
                             <h5>Total</h5>
                             <h5>{{ number_format($total_all)  }}</h5>
                         </div>
-                        <a href="{{ route('checkout') }}" class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</a>
+                        <a href="{{ route('checkout') }}" class="btn btn-block font-weight-bold my-3 py-3 btn-custom-shop">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>

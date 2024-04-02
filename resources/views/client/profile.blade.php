@@ -144,7 +144,7 @@
             <div class="row">
                 
                     <div class="col-lg-12">
-                        <div class="card user-card-full">
+                        <div class="card user-card-full boxshadow-custom">
                             <div class="row m-l-0 m-r-0">
                                 <div class="col-sm-4 bg-c-lite-green user-profile">
                                     <div class="text-center text-white">

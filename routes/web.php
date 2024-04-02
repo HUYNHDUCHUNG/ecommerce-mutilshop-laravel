@@ -55,7 +55,6 @@ Route::middleware('user_auth')->group(function(){
     Route::post('/add-order', [PaypalController::class, 'create'])->name('paypal.checkout');
     Route::get('/payment/paypal/return',[PaypalController::class, 'return'])->name('payment.paypal_return');
     Route::get('/payment/paypal/cancel',[PaypalController::class, 'cancel'])->name('payment.paypal_cancel');
-    
 });
 
 

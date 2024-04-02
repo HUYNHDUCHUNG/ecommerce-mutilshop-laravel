@@ -51,7 +51,7 @@
 
 
     <!-- Featured Start -->
-    <div class="container-fluid">
+    <div class="container-fluid" id="featured-start">
         <ul>
             <li class="fc-info-item">
                 <i class="fa fa-truck" aria-hidden="true"></i>

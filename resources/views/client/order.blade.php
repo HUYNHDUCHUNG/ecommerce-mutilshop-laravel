@@ -24,13 +24,13 @@
 <table class="table text-center mb-0 col-md-8" >
     <thead class="thead-light">
       <tr>
-        <th>Code Order</th>
-        <th >Name</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Status</th>
-        <th>Order Date</th>
-        <th>Detail</th>
+        <th>Mã đơn hàng</th>
+        <th >Họ tên</th>
+        <th>Điện thoại</th>
+        <th>Địa chỉ</th>
+        <th>Trạng thái</th>
+        <th>Ngày đặt</th>
+        <th>Chi tiết</th>
         <th></th>
       </tr>
     </thead>
@@ -41,9 +41,9 @@
         <td>{{ $item->fullname }}</td>
         <td>{{ $item->phonenumber }}</td>
         <td >{{ $item->address }}</td>
-        <td>{{ $item->orderStatus->name }}</td>
+        <td style="width: 120px;">{{ $item->orderStatus->name }}</td>
         <td>{{ $item->created_at }}</td>
-        <td><a href="{{ route('user.order.detail',['id' => $item->id]) }}">Detail</a></td>
+        <td style="width: 120px;"><a href="{{ route('user.order.detail',['id' => $item->id]) }}">Detail</a></td>
         @if ($item->status == 0)
         <td><a href="{{ route('user.cancel.order',['id' =>$item->id]) }}" class="btn btn-danger">Cancel</a></td>
         @endif
