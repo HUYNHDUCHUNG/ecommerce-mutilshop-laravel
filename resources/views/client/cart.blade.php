@@ -28,13 +28,13 @@
 
                             <th>Size</th>
                             <th>Màu sắc</th>
-                            <th>Số lượng</th>
+                            <th style="width: 100px">Số lượng</th>
                             <th>Tổng tiền</th>
                             <th>Xóa</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        @foreach ($cartDetails as $key => $item)
+                        @forelse ($cartDetails as $key => $item)
                             <tr data-id={{ $item->id }} class="item-cart">
                                 <td class="align-middle"><img src="{{ asset('storage/upload/' . $img[$key]) }}"
                                         alt="" style="width: 80px; border-radius: 4px"></td>
@@ -44,28 +44,20 @@
                                 <td class="align-middle" style="width: 90px;">{{ $item->color }}</td>
 
                                 <td class="align-middle">
-                                    <div class="input-group quantity mx-auto ">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-custom-shop btn-minus">
-                                                <i class="fa fa-minus btn-icon"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text"
-                                            class="form-control form-control-sm bg-secondary border-0 text-center"
-                                            value="{{ $item->quantity }}">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-custom-shop btn-plus">
-                                                <i class="fa fa-plus btn-icon"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    {{ $item->quantity }}
                                 </td>
                                 <td class="align-middle total" style="width: 100px;">
                                     {{ number_format($item->price * $item->quantity) }}</td>
                                 <td class="align-middle" style="width: 120px;"><button class="btn btn-sm btn-danger"><i
                                             class="fa fa-times btn-icon"></i></button></td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="8" style="padding: 40px">
+                                    Bạn chưa có sản phẩm nào trong giỏ hàng!
+                                </td>
+                            </tr>
+                        @endforelse
 
 
                     </tbody>
@@ -87,21 +79,22 @@
                     <div class="bg-light mb-5">
                         <div class="border-bottom pb-2">
                             <div class="d-flex justify-content-between mb-3">
-                                <h6>Subtotal</h6>
+                                <h6>Tổng phụ:</h6>
                                 <h6>{{ number_format($total_all) }}</h6>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <h6 class="font-weight-medium">Shipping</h6>
-                                <h6 class="font-weight-medium">Free ship</h6>
+                                <h6 class="font-weight-medium">Phí ship:</h6>
+                                <h6 class="font-weight-medium">Miễn phí</h6>
                             </div>
                         </div>
                         <div class="pt-2">
                             <div class="d-flex justify-content-between mt-2">
-                                <h5>Total</h5>
+                                <h5>Tổng giá</h5>
                                 <h5>{{ number_format($total_all) }}</h5>
                             </div>
                             <a href="{{ route('checkout') }}"
-                                class="btn btn-block font-weight-bold my-3 py-3 btn-custom-shop" style="border-radius: 4px">Proceed To Checkout</a>
+                                class="btn btn-block font-weight-bold my-3 py-3 btn-custom-shop"
+                                style="border-radius: 4px">Thanh toán</a>
                         </div>
                     </div>
                 </div>
@@ -120,84 +113,90 @@
 
 
 
-            $('.btn-minus').on('click', function() {
-                // alert( $(this).closest('.item-cart').data('id'));
-                var btn = $(this)
+        //     $('.btn-minus').on('click', function() {
+        //         // alert( $(this).closest('.item-cart').data('id'));
+        //         var btn = $(this)
 
-                var quantity = $(this).closest('.quantity').find('input').first().val();
-                if (quantity == 0) {
+        //         var quantity = $(this).closest('.quantity').find('input').first().val();
+        //         if (quantity == 1) {
 
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
+        //             Swal.fire({
+        //                 title: 'Are you sure?',
+        //                 text: "You won't be able to revert this!",
+        //                 icon: 'warning',
+        //                 showCancelButton: true,
+        //                 confirmButtonColor: '#3085d6',
+        //                 cancelButtonColor: '#d33',
+        //                 confirmButtonText: 'Yes, delete it!'
+        //             }).then((result) => {
+        //                 if (result.isConfirmed) {
 
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
+        //                     Swal.fire(
+        //                         'Deleted!',
+        //                         'Your file has been deleted.',
+        //                         'success'
 
-                            )
+        //                     )
 
-                            $(this).closest('.item-cart').find('.btn-danger').click();
+        //                     $(this).closest('.item-cart').find('.btn-danger').click();
 
-                        } else {
-                            $(this).closest('.quantity').find('input').first().val(1);
-                            $.ajax({
-                                url: '/plus-quanity',
-                                method: 'GET',
-                                data: {
-                                    'id': btn.closest('.item-cart').data('id'),
-                                },
-                                // dataType: 'text',
-                                success: function(data) {
-                                    // alert(data);
-                                    btn.closest('.item-cart').find('.total').first()
-                                        .html(data);
-                                }
-                            })
-                        }
-                    })
+        //                 } else {
+        //                     $(this).closest('.quantity').find('input').first().val(1);
+        //                     $.ajax({
+        //                         url: '/plus-quanity',
+        //                         method: 'GET',
+        //                         data: {
+        //                             'id': btn.closest('.item-cart').data('id'),
+        //                         },
+        //                         // dataType: 'text',
+        //                         success: function(data) {
+        //                             // alert(data);
+        //                             btn.closest('.item-cart').find('.total').first()
+        //                                 .html(data);
+        //                         }
+        //                     })
+        //                 }
+        //             })
 
-                }
-                $.ajax({
-                    url: '/minus-quanity',
-                    method: 'GET',
-                    data: {
-                        'id': btn.closest('.item-cart').data('id'),
-                    },
-                    // dataType: 'text',
-                    success: function(data) {
-                        // alert(data);
-                        btn.closest('.item-cart').find('.total').first().html(data);
+        //         }
+        //         $.ajax({
+        //             url: '/minus-quanity',
+        //             method: 'GET',
+        //             data: {
+        //                 'id': btn.closest('.item-cart').data('id'),
+        //             },
+        //             // dataType: 'text',
+        //             success: function(data) {
+        //                 // alert(data);
+        //                 btn.closest('.item-cart').find('.total').first().html(data);
+        //                 var input = document.getElementById('input-quantity');
+        //                 var value = parseInt(input.value, 10);
+        //                 input.value = isNaN(value) ? 1 : value - 1;
+        //             }
+        //         })
+        //     })
 
-                    }
-                })
-            })
 
+        //     $('.btn-plus').on('click', function() {
+        //         // alert( $(this).closest('.item-cart').data('id'));
+        //         var btn = $(this)
+        //         $.ajax({
+        //             url: '/plus-quanity',
+        //             method: 'GET',
+        //             data: {
+        //                 'id': btn.closest('.item-cart').data('id'),
+        //             },
+        //             // dataType: 'text',
+        //             success: function(data) {
+        //                 // alert(data);
+        //                 btn.closest('.item-cart').find('.total').first().html(data);
+        //                 var input = document.getElementById('input-quantity');
+        //                 var value = parseInt(input.value, 10);
+        //                 input.value = isNaN(value) ? 1 : value + 1;
+        //             }
+        //         })
+        //     })
 
-            $('.btn-plus').on('click', function() {
-                // alert( $(this).closest('.item-cart').data('id'));
-                var btn = $(this)
-                $.ajax({
-                    url: '/plus-quanity',
-                    method: 'GET',
-                    data: {
-                        'id': btn.closest('.item-cart').data('id'),
-                    },
-                    // dataType: 'text',
-                    success: function(data) {
-                        // alert(data);
-                        btn.closest('.item-cart').find('.total').first().html(data);
-                    }
-                })
-            })
 
             $('.btn-danger').on('click', function() {
                 // alert( $(this).closest('.item-cart').data('id'));

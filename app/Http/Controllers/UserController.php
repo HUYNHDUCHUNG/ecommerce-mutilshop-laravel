@@ -118,7 +118,7 @@ class UserController extends Controller
 
         $category = Category::all();
         $product_featured = Product::where('product_featured', 1)->get();
-        $product_recent = Product::where('created_at', '>=', Carbon::now()->subDays(15))
+        $product_recent = Product::where('created_at', '>=', Carbon::now()->subDays(999))
             ->orderBy('created_at', 'desc')
             ->get();
         return view('client.home', compact('category', 'product_featured', 'product_recent', 'cart_qty'));

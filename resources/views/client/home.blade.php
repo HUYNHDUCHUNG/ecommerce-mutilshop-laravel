@@ -339,46 +339,58 @@
 
     <!-- Products Start -->
     <div class="container-fluid pt-5 pb-3">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Recent
-                Products</span></h2>
         <div class="row px-xl-5">
-            @foreach ($product_recent as $item)
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <div class="product-item bg-light mb-4">
-                        <div class="product-img position-relative overflow-hidden">
+            <div class="col-lg-12">
+                <div class="bg-light boxshadow-custom p-30" style="border-radius: 10px">
+                    <h3 class="mb-30">Sản phẩm mới nhất</h3>
+                    <div class="row">
+                        <div class="owl-carousel">
+                            @foreach ($product_recent as $item)
+                                {{-- <div class="col-lg-3 col-md-4 col-sm-6 pb-1"> --}}
+                                    <div class="product-item bg-light mb-4">
+                                        <div class="product-img position-relative overflow-hidden">
 
-                            <img class="img-fluid w-100"
-                                src="{{ asset('storage/upload/' . $item->productImgs['0']->img_name) }}" alt="">
-                            <div class="product-action">
-                                {{-- <a class="btn btn-outline-dark btn-square" href="{{ route('add.cart',['id' => $item->id, 'price' => $item->product_price]) }}"><i class="fa fa-shopping-cart"></i></a> --}}
-                                <a class="btn btn-outline-dark btn-square"
-                                    href="{{ route('product-detail', ['id' => $item->id]) }}"><i
-                                        class="fa fa-search"></i></a>
-                            </div>
+                                            <img class="img-fluid w-100"
+                                                src="{{ asset('storage/upload/' . $item->productImgs['0']->img_name) }}"
+                                                alt="">
+                                            <div class="product-action">
+                                                {{-- <a class="btn btn-outline-dark btn-square" href="{{ route('add.cart',['id' => $item->id, 'price' => $item->product_price]) }}"><i class="fa fa-shopping-cart"></i></a> --}}
+                                                <a class="btn btn-outline-dark btn-square"
+                                                    href="{{ route('product-detail', ['id' => $item->id]) }}"><i
+                                                        class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="text-center py-4">
+                                            <a class="h6 text-decoration-none text-truncate" href=""
+                                                style="display: flex">{{ $item->product_name }}</a>
+                                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                                <h5>{{ number_format($item->product_price) }} <small>đ</small> </h5>
+                                                <h6 class="text-muted ml-2">
+                                                    <del>{{ number_format($item->product_price) }}<small>đ</small></del>
+                                                </h6>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small class="fa fa-star text-primary mr-1"></small>
+                                                <small>(99)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{-- </div> --}}
+                            @endforeach
                         </div>
-                        <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href=""
-                                style="display: flex">{{ $item->product_name }}</a>
-                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5>{{ number_format($item->product_price) }} <small>đ</small> </h5>
-                                <h6 class="text-muted ml-2">
-                                    <del>{{ number_format($item->product_price) }}<small>đ</small></del>
-                                </h6>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center mb-1">
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small class="fa fa-star text-primary mr-1"></small>
-                                <small>(99)</small>
-                            </div>
-                        </div>
+
+
                     </div>
                 </div>
-            @endforeach
+
+            </div>
 
         </div>
+
     </div>
     <!-- Products End -->
 
@@ -417,4 +429,20 @@
         </div>
     </div>
     <!-- Vendor End -->
+@endsection
+
+@section('js')
+    <script>
+        $(function() {
+            $('.owl-carousel').owlCarousel({
+                items:5,
+                margin: 30,
+                loop: true,
+                nav: false,
+                autoplay: true,
+                smartSpeed: 500,
+
+            })
+        })
+    </script>
 @endsection

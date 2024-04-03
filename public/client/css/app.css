@@ -133,7 +133,24 @@ body > div.container-fluid.bg-dark.mb-30 > div > div.col-lg-3.d-none.d-lg-block 
     color: var(--main-color);
 }
 #navbarCollapse > div > a{
+    position: relative;
     color: #ffb700;
+    font-weight: 500;
+}
+#navbarCollapse > div > a:hover{
+    color: #fd9905;
+    background-color: #27272a1f;
+    border-radius: 8px;
+}
+#navbarCollapse > div > a:not(:last-child)::after{
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 70%;
+    top: 0;
+    right: 0;
+    background-color: #27272a1f;
+    transform: translateY(25%);
 }
 
 /* slide  */
@@ -213,6 +230,9 @@ body > div:nth-child(4) > div > div.col-lg-9.col-md-8 > div > div > div > div.bo
     box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .18);
     overflow: hidden;
 }
+body > div:nth-child(5) > div > div > div > div > div> div > div.text-center.py-4{
+    padding: 0 15px;
+}
 
 
 /* footer  */
@@ -276,4 +296,20 @@ body > div:nth-child(4) > div > div.col-lg-8.table-responsive.mb-5 > table{
 body > div:nth-child(4) > div > div.col-lg-8.table-responsive.mb-5 > table > thead{
     background-color: var(--main-color);
     color: #fff;
+}
+
+body > div:nth-child(7) > div > div > div > div > div > div.owl-stage-outer > div > div > div > div.text-center.py-4 > div.d-flex.align-items-center.justify-content-center.mb-1 > small{
+    color: var(--seccond-color) !important;
+}
+
+body > div:nth-child(7) > div > div > div > div > div > div.owl-stage-outer > div > div > div{
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px 1px rgba(0, 0, 0, .18) !important;
+    
+}
+
+body > div:nth-child(7) > div > div > div > div > div > div.owl-stage-outer > div > div > div > div.text-center.py-4{
+    padding: 0 15px;
 }

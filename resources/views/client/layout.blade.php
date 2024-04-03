@@ -11,6 +11,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/client/img/logo.png') }}">
 
 
+ 
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -26,9 +27,14 @@
     <link href="{{ asset('client/lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('client/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('client/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('client/css/app.css') }}" rel="stylesheet">
+
+
+
+    
 </head>
 
 <body>
@@ -135,7 +141,7 @@
                     </div>
                 </nav>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-6">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                     <button type="button" class="navbar-toggler" data-toggle="collapse"
                         data-target="#navbarCollapse">
@@ -159,6 +165,13 @@
 
                     </div>
 
+            </div>
+            <div class="col-lg-3 ">
+                <div class="text-right" style="align-content: center; height: 100%;" >
+                    <i class="fas fa-phone-volume mr-2"></i>
+                    <span>Gọi ngay: 0123456789</span>
+                </div>
+                
             </div>
             </nav>
         </div>
@@ -261,12 +274,15 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-
+    
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('client/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('client/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+    {{-- carosel --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> --}}
 
     <!-- Contact Javascript File -->
     <script src="{{ asset('client/mail/jqBootstrapValidation.min.js') }}"></script>
@@ -274,6 +290,7 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('client/js/main.js') }}"></script>
+    
     @yield('js')
 </body>
 
